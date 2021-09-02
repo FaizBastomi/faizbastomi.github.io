@@ -6,7 +6,6 @@
         <title>WhatsApp Bot</title>
         <link rel="stylesheet" href="./css/style.css">
         <link rel="icon" href="../media/photo.jpeg">
-        <script src="https://unpkg.com/whatsapp-button?module" type="module"></script>
     </head>
     <body>
         <div>
@@ -21,7 +20,8 @@
             <p class="text">
                 Untuk lebih lanjut silahkan cek ke bot nya langsung dengan menekan atau klik tombol dibawah.
             </p>
-            <whatsapp-button phone="404753665" dialcode="994" text="!help" label="Start Chat" bypass></whatsapp-button>
+            <button id="button" onclick="openLink()">Start Chat</button>
         </div>
+        <script src="./js/click.js"></script>
     </body>
 </html>
