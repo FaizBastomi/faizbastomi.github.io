@@ -19,7 +19,8 @@ body{
 }
 
 div {
-    width: 600px;
+    max-width: 600px;
+    width: auto;
     margin: 3em auto;
     padding: 1.5em;
     background-color: #10161D;
