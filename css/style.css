@@ -16,6 +16,7 @@ body{
     display: block;
     margin: 35px auto 25px;
     border-radius: 50%;
+    pointer-events: none;
 }
 
 #userName {
