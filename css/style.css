@@ -20,7 +20,7 @@ body{
 }
 
 #userName {
-    color: #C1BCAC;
+    color: aliceblue;
     font-weight: normal;
     line-height: 1.25;
     display: block;
@@ -39,7 +39,7 @@ body{
 }
 .link {
     display: block;
-    color: #C1BCAC;
+    color: aliceblue;
     background-color: var(--accentColor);
     font-family: var(--font);
     text-align: center;
