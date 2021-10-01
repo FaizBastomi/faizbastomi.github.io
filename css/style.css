@@ -19,17 +19,12 @@ body{
     pointer-events: none;
 }
 
-div {
-    max-width: 600px;
-    width: auto;
-    margin: 3em auto;
-    padding: 1.5em;
-    background-color: #10161D;
-    border-radius: 0.5em;
-}
-
-.text {
+#userName {
     color: aliceblue;
+    font-weight: normal;
+    line-height: 1.25;
+    display: block;
+    font-size: 25px;
     font-family: var(--font);
     text-decoration: none;
     font-size: 14px;
@@ -37,7 +32,12 @@ div {
 
 .title {
     display: block;
+    margin: 27px auto;
+}
+.link {
+    display: block;
     color: aliceblue;
+    background-color: var(--accentColor);
     font-family: var(--font);
     text-decoration: none;
 }
