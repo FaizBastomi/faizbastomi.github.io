@@ -41,6 +41,8 @@ body{
     display: block;
     color: aliceblue;
     background-color: var(--accentColor);
+    border: none;
+    border-radius: 6px;
     font-family: var(--font);
     text-align: center;
     text-decoration: none;
