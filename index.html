@@ -2,21 +2,42 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:image" content="https://telegra.ph/file/18a41d9b616b65638df3a.jpg">
         <meta name="description" content="Home Page">
         <meta property="og:description" content="Home Page">
         <meta property="og:site_name" content="null">
         <title>Home</title>
         <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="icon" href="./media/photo.jpeg" type="image/jpeg">
     </head>
     <body>
-        <img id="userPhoto" src="./media/photo.jpeg" alt="Hu Tao" oncontextmenu="return false">
-        <a id="userName">FaizBastomi</a>
-        <div id="links">
-            <a class="link" href="./bot/" oncontextmenu="return false">WhatsApp Bot</a>
-            <a class="link" href="./donate/" oncontextmenu="return false">Donations</a>
+        <header class="head-page">
+            <img class="main-photo" src="./media/photo.jpeg" alt="main-photo" />
+            <div class="head-logo">FaizBastomi</div>
+        </header>
+        <div class="bot-section">
+            <img src="./media/bot.jpg" alt="second-photo" class="second-photo" />
+            <h2 id="title">SMH Bot</h2>
+            <p id="text">
+                SMH Bot - A multipurpose <strong>WhatsApp Bot</strong> - Built with Javascript and NodeJS <br />
+                This bot can download from YouTube, Instagram, Twitter and TikTok.<br />
+                Group management for your group, convert your image to sticker, weebs features and many mores.<br />
+                Click button below to follow to the bot number.
+            </p>
+            <div class="btn-wrapper">
+                <a class="btn whatsapp" href="https://api.whatsapp.com/send?phone=62853826188555&text=!help" target="_blank">
+                    <span class="fa fa-whatsapp"></span>
+                    Open Chat
+                </a>
+            </div>
+        </div>
+        <div class="donation-section">
+            <h1>Donations💖</h1>
+            <p>Show your Support</p>
+            <a class="btn saweria" href="https://saweria.co/faizbastomy" target="_blank">Saweria</a>
+            <a class="btn trakteer" href="https://trakteer.id/faiz-bastomy" target="_blank">Trakteer</a>
         </div>
     </body>
 </html>
