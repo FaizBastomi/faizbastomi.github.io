@@ -36,7 +36,7 @@ body {
 .bot-section {
     max-width: 650px;
     margin: 20px 20px;
-    padding: 10px 25px 10px 25px;
+    padding: 10px 25px;
     width: auto;
     background-color: #10161D;
     border-radius: 0.5em;
@@ -50,6 +50,9 @@ body {
     border-radius: 50%;
     pointer-events: none;
 }
+.text-box {
+    margin: 0px 100px 0px 50px;
+}
 #title {
     display: block;
     text-decoration: none;
@@ -58,6 +61,7 @@ body {
 #text {
     font-size: 14px;
     text-decoration: none;
+    margin-left: 15px;
 }
 .btn {
     width: 120px;
@@ -74,10 +78,10 @@ body {
     line-height: 1.25;
     font-weight: bold;
 }
-.whatsapp {
-    background-color: #218434;
+.telegram {
+    background-color: #0088CC;
 }
-.fa {
+.fa-brands {
     margin-right: 5px;
     margin-left: 0px;
 }
@@ -86,7 +90,7 @@ body {
 .donation-section {
     max-width: 650px;
     margin: 20px 20px;
-    padding: 10px 25px 10px 25px;
+    padding: 10px 25px;
     width: auto;
     background-color: #10161D;
     border-radius: 0.5em;
@@ -108,4 +112,5 @@ body {
 }
 .trakteer {
     background-color: #f01f03;
+    margin-bottom: 10px;
 }
