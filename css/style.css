@@ -2,12 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root {
     --bgColor: #1F212B;
-    --accentColor: #218434;
-    --font: 'Roboto', sans-serif;
+    --roboto: 'Roboto', sans-serif;
 }
 body {
     background-color: var(--bgColor);
-    font-family: var(--font);
+    font-family: var(--roboto);
 }
 
 /* Header */
@@ -112,5 +111,9 @@ body {
 }
 .trakteer {
     background-color: #f01f03;
+    margin-bottom: 5px;
+}
+.kofi {
+    background-color: #29abe1;
     margin-bottom: 10px;
 }
