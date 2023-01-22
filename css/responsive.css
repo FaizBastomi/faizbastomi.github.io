@@ -15,6 +15,14 @@
     }
 }
 
+@media only screen and (min-width: 757px) {
+    .container {
+        display: flex;
+        justify-self: center;
+        flex-direction: row;
+    }
+}
+
 @media only screen and (min-width: 600px) {
     .container {
         justify-self: center;

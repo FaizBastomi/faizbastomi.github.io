@@ -3,17 +3,85 @@
 :root {
     --bgColor: #1F212B;
     --mainColor: #10161D;
-    --roboto: 'Roboto', sans-serif;
+    --textColor: aliceblue;
 }
 body {
     background-color: var(--bgColor);
-    font-family: var(--roboto);
+    font-family: 'Roboto', sans-serif;
+}
+
+[data-theme=light]{
+    --bgColor: rgb(177, 194, 209);
+    --mainColor: rgb(142, 153, 161);
+    --textColor: #222222;
+}
+
+/* Day-Night toggle */
+.theme-switch-wrapper{
+    padding: 26px 35px 20px 5px;
+    float: right;
+}
+.theme-switch{
+    display: inline-block;
+    height: 21px;
+    position: relative;
+    width: 50px;
+}
+.theme-switch input{
+    display: none;
+}
+.slider{
+    background-color: var(--bgColor);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.7s;
+    border-radius: 80px;
+    overflow: hidden;
+}
+.slider:before{
+    background-color: #ffdc3f;
+    bottom: 3px;
+    left: 3px;
+    content: "";
+    height: 16px;
+    width: 20px;
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.7s;
+}
+.slider:after{
+    background-color: rgb(180,194,206);
+    bottom: 3px;
+    left: -20px;
+    content: "";
+    height: 16px;
+    width: 20px;
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.7s;
+}
+input:checked + .slider{
+    background-color: var(--bgColor);
+}
+
+input:checked + .slider:before{
+    transform: translateX(22px);
+    background-color: #FFE15D;
+}
+
+input:checked + .slider:after{
+    transform: translateX(38px);
+    background-color: var(--bgColor);
 }
 
 /* Header */
 .head-page {
-    background-color: #10161D;
-    color: aliceblue;
+    background-color: var(--mainColor);
+    color: var(--textColor);
     height: 78px;
     border-radius: 0.5em;
 }
@@ -38,9 +106,9 @@ body {
     margin: 20px 20px;
     padding: 10px 25px;
     width: auto;
-    background-color: #10161D;
+    background-color: var(--mainColor);
     border-radius: 0.5em;
-    color: aliceblue;
+    color: var(--textColor);
 }
 .second-photo {
     width: 96px;
@@ -68,7 +136,7 @@ body {
     height: 30px;
     padding: 3px;
     margin: auto;
-    color: aliceblue;
+    color: var(--textColor);
     display: flex;
     text-decoration: none;
     border-radius: 4px;
@@ -78,8 +146,8 @@ body {
     line-height: 1.25;
     font-weight: bold;
 }
-.telegram {
-    background-color: #0088CC;
+.whatsapp {
+    background-color: #01e675;
 }
 .fa-brands {
     margin-right: 5px;
@@ -92,9 +160,9 @@ body {
     margin: 20px 20px;
     padding: 10px 25px;
     width: auto;
-    background-color: #10161D;
+    background-color: var(--mainColor);
     border-radius: 0.5em;
-    color: aliceblue;
+    color: var(--textColor);
 }
 .donation-section h1 {
     display: block;
