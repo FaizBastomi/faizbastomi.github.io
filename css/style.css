@@ -3,19 +3,19 @@
 @import url('./day-night.css');
 
 :root {
-    --bgColor: #1F212B;
-    --mainColor: #10161D;
-    --textColor: aliceblue;
+    --bgColor: rgb(177, 194, 209);
+    --mainColor: rgb(142, 153, 161);
+    --textColor: #222222;
 }
 body {
     background-color: var(--bgColor);
     font-family: 'Roboto', sans-serif;
 }
 
-[data-theme=light]{
-    --bgColor: rgb(177, 194, 209);
-    --mainColor: rgb(142, 153, 161);
-    --textColor: #222222;
+[data-theme=dark]{
+    --bgColor: #1F212B;
+    --mainColor: #10161D;
+    --textColor: aliceblue;
 }
 
 /* Header */

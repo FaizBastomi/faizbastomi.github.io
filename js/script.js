@@ -1,8 +1,3 @@
-window.onload = function () {
-    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-    toggleSwitch.checked = true
-}
-
 const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
 const currentTheme = localStorage.getItem('theme');
 
