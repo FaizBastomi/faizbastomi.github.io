@@ -1,0 +1,36 @@
+.link-tree {
+  margin: 8px auto;
+  font-family: Poppins, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  width: 200px;
+  border-radius: 15px;
+  border: 5px solid var(--bs-light-text-emphasis) ;
+}
+
+.head {
+  margin: 32px 0 0;
+}
+
+.btn-bg {
+  background: #10161D;
+  color: var(--bs-white);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.btn-bg:hover {
+  color: var(--bs-white);
+  border-style: solid;
+  border-color: #10161D;
+  border-radius: 10px;
+  background: #10161D;
+}
+
+.name {
+  font-family: Poppins, sans-serif;
+  color: var(--bs-white);
+  font-weight: bold;
+  margin: 8px 0;
+}
+
