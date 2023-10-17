@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tools</title>
+    <link rel="canonical" href="https://faizdev.my.id/">
+    <meta property="og:url" content="https://faizdev.my.id/">
+    <meta property="og:title" content="FaizBastomi || Random Color Generator">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://faizdev.my.id/assets/img/photo.jpeg">
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/img/favion_16.jpeg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/img/favicon_32.jpeg">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100 min-vw-100">
+        <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+            <div id="profile-box" class="mx-1">
+                <div class="mx-4 my-3">
+                    <h2 class="text-center">Random Color<br>Generator</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                        <form>
+                            <div class="input-group">
+                                <span class="input-group-text">#</span>
+                                <input class="form-control" type="text" name="color_hex" id="result" readonly>
+                            </div>
+                        </form>
+                        <button id="generate" class="btn btn-dark">Generate!</button>
+                        <button id="copy" class="btn btn-success"><i class="fa-regular fa-clipboard"></i> Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            let button = document.getElementById("generate");
+            let copy = document.getElementById("copy");
+            let textBox = document.getElementById("result");
+
+            /** Generate random hex */
+            function generate() {
+                let bg_colour = Math.floor(Math.random() * 16777215).toString(16);
+                bg_colour = "#" + ("000000" + bg_colour).slice(-6);
+                document.querySelector("body").setAttribute(`style`, `background-color: ${bg_colour};`);
+                textBox.setAttribute('value', bg_colour.slice(1));
+            }
+
+            /** Copy to clipboard */
+            function copyClipboard() {
+                textBox.select();
+                navigator.clipboard.writeText("#" + textBox.value);
+            }
+            button.addEventListener("click", generate);
+            copy.addEventListener("click", copyClipboard);
+            generate();
+        });
+    </script>
+</body>
+
+</html>

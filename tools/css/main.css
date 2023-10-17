@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700&display=swap");
+
+#profile-box,
+.btn,
+footer,
+footer a {
+  color: #f8f8f8;
+}
+
+#profile-box {
+  width: 650px;
+  height: auto;
+  font-family: Poppins, sans-serif;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
