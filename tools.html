@@ -4,45 +4,42 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Random Color Generator</title>
+    <title>Tools</title>
     <link rel="canonical" href="https://faizdev.my.id/">
     <meta property="og:url" content="https://faizdev.my.id/">
-    <meta property="og:title" content="FaizBastomi || Random Color Generator">
+    <meta property="og:title" content="FaizBastomi || Tools">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://faizdev.my.id/assets/img/photo.jpeg">
     <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/img/favion_16.jpeg">
     <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/img/favicon_32.jpeg">
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body>
     <div class="d-flex flex-column min-vh-100 min-vw-100">
         <div class="d-flex flex-grow-1 justify-content-center align-items-center">
-            <div id="profile-box" class="mx-1">
-                <div class="mx-4 my-3">
-                    <h2 class="text-center">Random Color<br>Generator</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
-                        <form>
-                            <div class="input-group">
-                                <span class="input-group-text">#</span>
-                                <input class="form-control" type="text" name="color_hex" id="result" readonly>
-                            </div>
-                        </form>
-                        <button id="generate" class="btn btn-dark">Generate!</button>
-                        <button id="copy" class="btn btn-success"><i class="fa-regular fa-clipboard"></i> Copy</button>
+            <div id="profile-box">
+                <div class="mx-4 mt-3">
+                    <h2>Tools</h2>
+                </div>
+                <div class="mx-4">
+                    <div class="d-flex flex-row gap-1">
+                        <ul>
+                            <li>
+                                <a role="button" href="/tools/random_color" class="btn btn-sm">
+                                    Random Color
+                                    <i class="fa-solid fa-palette ms-1"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/random_color.js"></script>
 </body>
 
 </html>
