@@ -18,3 +18,9 @@ footer a {
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
+
+.modal-content {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: white;
+}
