@@ -58,12 +58,12 @@
         let millisecondsToWait;
         let fullTime;
         /** document element */
-        const dResin = document.getElementById("dResin");
+        const formCResin = document.getElementById("cResin");
         const button = document.getElementById("hitung");
         
         /** Calculate */
         function calculate() {
-            const cResin = document.querySelector("#cResin").value;
+            let cResin = document.querySelector("#cResin").value;
             let missingResin = maxResin - cResin;
             millisecondsToWait = missingResin * minutePerResin;
             fullTime = dayjs(currentTime.valueOf() + millisecondsToWait);
@@ -77,6 +77,12 @@
                 document.querySelector("label#time").innerHTML = currentTime.format("dddd HH:mm:ss");
             }, 1000);
             button.addEventListener("click", calculate);
+            formCResin.addEventListener("input", function () {
+                let point = this.value;
+                if (point > maxResin) {
+                    this.value = maxResin;
+                }
+            })
         }
     </script>
 </body>
