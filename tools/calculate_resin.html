@@ -32,13 +32,20 @@
                     <form>
                         <div class="d-flex flex-row justify-content-between">
                             <label for="cResin" class="col-form-label">Current Resin</label>
-                            <label id="time" class="col-form-label"></label>
+                            <label id="time" class="col-form-label">Loading...</label>
                         </div>
-                        <input type="number" class="form-control" id="cResin" min="0" max="160" value="" placeholder="Your current resin">
-                        <button type="button" id="hitung" class="w-100 btn btn-dark mt-2" disabled="true">Calculate</button>
+                        <input onchange="window.handleInputChange('maxResin')" type="number" class="form-control" id="cResin" min="0" max="160" value="" placeholder="Your current resin">
+                        <label for="dResin" class="col-form-label">Or Desired Resin</label>
+                        <input onchange="window.handleInputChange('desiredResin')" type="number" class="form-control" id="dResin" min="0" value="" placeholder="Desired resin">
+                        <button type="button" id="hitung" class="w-100 btn btn-dark mt-2">Calculate</button>
                     </form>
                     <div>
-                        <p class="text-danger mt-2" id="result"></p>
+                        <div class="d-flex flex-column flex-md-row gap-md-3">
+                            <p class="mb-0" id="ogResin"></p>
+                            <p class="mb-0" id="cddResin"></p>
+                        </div>
+                        <p class="mb-0" id="fragResin"></p>
+                        <p class="text-danger" id="untilFull"></p>
                     </div>
                 </div>
             </div>
@@ -49,47 +56,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/plugin/relativeTime.min.js"></script>
-    <script type="text/javascript">
-        dayjs.extend(window.dayjs_plugin_relativeTime);
-        /** default variable */
-        let maxResin = 160;
-        let minutePerResin = 8 * 60 * 1000;
-        let currentTime = dayjs();
-        let millisecondsToWait;
-        let fullTime;
-        /** document element */
-        const formCResin = document.getElementById("cResin");
-        const button = document.getElementById("hitung");
-        
-        /** Calculate */
-        function calculate() {
-            let cResin = document.querySelector("#cResin").value;
-            let missingResin = maxResin - cResin;
-            millisecondsToWait = missingResin * minutePerResin;
-            fullTime = dayjs(currentTime.valueOf() + millisecondsToWait);
-            document.querySelector("p#result").innerHTML = `Replenished at: ${fullTime.format("dddd HH:mm:ss")} (${fullTime.fromNow()})`;
-        }
-
-        window.addEventListener("load", init)
-        function init() {
-            const interval = setInterval(() => {
-                currentTime = dayjs().add(0, "minute");
-                document.querySelector("label#time").innerHTML = currentTime.format("dddd HH:mm:ss");
-            }, 1000);
-            button.addEventListener("click", calculate);
-            formCResin.addEventListener("input", function () {
-                let point = this.value;
-                if (point > maxResin) {
-                    this.value = maxResin;
-                }
-                if (point >= 1) {
-                    button.removeAttribute("disabled");
-                } else {
-                    button.setAttribute("disabled", "");
-                }
-            })
-        }
-    </script>
+    <script src="js/calculate_resin.min.js" type="text/javascript"></script>
 </body>
 
 </html>
