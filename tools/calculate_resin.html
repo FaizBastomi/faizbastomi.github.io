@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Resin Calculator</title>
+    <link rel="canonical" href="https://faizdev.my.id/">
+    <meta property="og:url" content="https://faizdev.my.id/">
+    <meta property="og:title" content="Resin Calculator">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://faizdev.my.id/assets/img/photo.jpeg">
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/img/favion_16.jpeg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="/assets/img/favicon_32.jpeg">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+    <div class="d-flex flex-column min-vh-100 min-vw-100">
+        <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+            <div id="profile-box" class="mx-1">
+                <div class="mx-4 my-3">
+                    <!-- title -->
+                    <div class="text-center">
+                        <h2>Resin Calculator</h2>
+                    </div>
+                    <!-- form -->
+                    <form>
+                        <div class="d-flex flex-row justify-content-between">
+                            <label for="cResin" class="col-form-label">Current Resin</label>
+                            <label id="time" class="col-form-label"></label>
+                        </div>
+                        <input type="number" class="form-control" id="cResin" min="0" max="160" value="" placeholder="Your current resin">
+                        <button type="button" id="hitung" class="w-100 btn btn-dark mt-2">Calculate</button>
+                    </form>
+                    <div>
+                        <p class="text-danger mt-2" id="result"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/plugin/relativeTime.min.js"></script>
+    <script type="text/javascript">
+        dayjs.extend(window.dayjs_plugin_relativeTime);
+        /** default variable */
+        let maxResin = 160;
+        let minutePerResin = 8 * 60 * 1000;
+        let currentTime = dayjs();
+        let millisecondsToWait;
+        let fullTime;
+        /** document element */
+        const dResin = document.getElementById("dResin");
+        const button = document.getElementById("hitung");
+        
+        /** Calculate */
+        function calculate() {
+            const cResin = document.querySelector("#cResin").value;
+            let missingResin = maxResin - cResin;
+            millisecondsToWait = missingResin * minutePerResin;
+            fullTime = dayjs(currentTime.valueOf() + millisecondsToWait);
+            document.querySelector("p#result").innerHTML = `Replenished at: ${fullTime.format("dddd HH:mm:ss")} (${fullTime.fromNow()})`;
+        }
+
+        window.addEventListener("load", init)
+        function init() {
+            const interval = setInterval(() => {
+                currentTime = dayjs().add(0, "minute");
+                document.querySelector("label#time").innerHTML = currentTime.format("dddd HH:mm:ss");
+            }, 1000);
+            button.addEventListener("click", calculate);
+        }
+    </script>
+</body>
+
+</html>
