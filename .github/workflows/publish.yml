@@ -2,7 +2,7 @@ name: publish-to-github-pages
 on:
   push:
     branches:
-      - linktree
+      - portfolio
 
 permissions:
   contents: read

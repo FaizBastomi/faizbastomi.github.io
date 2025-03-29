@@ -1,8 +1,5 @@
-import Link from 'next/link';
 import Head from 'next/head';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faArrowUpRightFromSquare, faFont, faPalette, faFontAwesome, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+import Projects from './components/Projects';
 
 export default function Home() {
   return (
@@ -10,72 +7,30 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <div className="flex flex-col min-h-screen min-w-full">
-        <div className="flex flex-grow flex-col justify-center items-center">
-          <div id="profile-box" className="mx-2 border border-[#89b4fa] rounded-2xl">
-            <div className="p-4">
-              <div className="flex items-center">
-                <img
-                  src="/image/profile.jpg"
-                  alt="Profile"
-                  width="230"
-                  height="230"
-                  className="w-24 h-24 rounded-md mr-4"
-                />
-                <div>
-                  <h1 className="font-bold text-lg md:text-2xl">Faiz Bastomi</h1>
-                  <p className="font-semibold text-sm md:text-lg text-[#858aa0]">Anime, Cat and Open Source ❤️</p>
-                </div>
-              </div>
-              <p className="mt-4 text-sm md:text-base font-medium">
-                Arch, F(L)OSS, Linux enjoyer. <br />
-                Likes to learn something new everyday.
-              </p>
-            </div>
-            <hr className="border-[#89b4fa]" />
-            <div className="grid justify-items-center">
-              <div className="my-2 flex gap-x-4">
-                <button onClick={() => window.open('https://github.com/FaizBastomi', '_blank')}>
-                  GitHub
-                  <FontAwesomeIcon className="ms-1" icon={faArrowUpRightFromSquare} fontSize={16} />
-                </button>
-                <button onClick={() => window.open('https://ko-fi.com/nightiz', '_blank')}>
-                  Ko-fi
-                  <FontAwesomeIcon className="ms-1" icon={faArrowUpRightFromSquare} fontSize={16} />
-                </button>
-                <button onClick={() => window.open('https://instagram.com/faizbastomi', '_blank')}>
-                  Instagram
-                  <FontAwesomeIcon className="ms-1" icon={faArrowUpRightFromSquare} fontSize={16} />
-                </button>
-              </div>
-            </div>
+      <section
+        id="about"
+        className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-8 md:flex-row md:px-16"
+      >
+        <div className="flex flex-col items-center text-center md:w-1/2 md:items-start md:text-left">
+          <div className="flex w-full flex-col items-center justify-center md:flex-col md:items-start">
+            <img src="/image/profile.jpg" alt="Profile" className="mb-6 ml-4 h-24 w-24 rounded-md md:ml-0 md:mt-4 md:hidden" />
+            <h1 className="text-3xl font-bold md:text-6xl">Faiz Bastomi</h1>
           </div>
+          <p className="mt-6 max-w-md text-base text-[#858aa0] md:text-lg">
+            Welcome to my personal website where I showcase my projects and interests in open source, anime, and technology.
+          </p>
         </div>
-        <footer className="flex flex-row text-sm justify-between p-3 items-end">
-          <div className="flex flex-col md:flex-row md:gap-x-4">
-            <Link className="hover:underline hover:text-[#eba0ac] text-[#858aa0]" href="https://fonts.google.com/specimen/Plus+Jakarta+Sans" target="_blank">
-              <FontAwesomeIcon className="me-1" icon={faFont} fontSize={14} />
-              Plus Jakarta Sans
-            </Link>
-            <Link className="hover:underline hover:text-[#eba0ac] text-[#858aa0]" href="https://nextjs.org" target="_blank">
-              <FontAwesomeIcon className="me-1" icon={faLayerGroup} fontSize={14} />
-              Nextjs
-            </Link>
-            <Link className="hover:underline hover:text-[#eba0ac] text-[#858aa0]" href="https://github.com/catppuccin" target="_blank">
-              <FontAwesomeIcon className="me-1" icon={faPalette} fontSize={14} />
-              Catppuccin
-            </Link>
-            <Link className="hover:underline hover:text-[#eba0ac] text-[#858aa0]" href="https://fontawesome.com" target="_blank">
-              <FontAwesomeIcon className="me-1" icon={faFontAwesome} fontSize={14} />
-              Fontawesome
-            </Link>
-          </div>
-          <button className='hover:text-[#eba0ac] text-[#858aa0]' onClick={() => window.open('https://github.com/FaizBastomi/faizbastomi.github.io', '_blank')}>
-            Clone on Github
-            <FontAwesomeIcon className="ms-1" icon={faGithub} fontSize={14} />
-          </button>
-        </footer>
-      </div>
+        <div className="hidden md:flex md:w-1/2 md:items-center md:justify-center">
+          <img src="/image/profile.jpg" alt="Hero Image" className="max-h-screen w-1/2 rounded-md object-cover" />
+        </div>
+      </section>
+
+      <section id="projects" className="flex min-w-full flex-col px-4 py-12 md:px-16">
+        <div className="mx-auto min-w-full max-w-5xl">
+          <h2 className="mb-8 mt-5 text-center text-3xl font-bold md:text-left md:text-4xl">Projects</h2>
+          <Projects />
+        </div>
+      </section>
     </>
   );
 }
