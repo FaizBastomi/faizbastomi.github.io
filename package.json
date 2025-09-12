@@ -13,15 +13,16 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "next": "^14.2.26",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "react": "^18",
-    "react-dom": "^18"
+    "@fortawesome/react-fontawesome": "^0.2.6",
+    "next": "^14.2.32",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "prettier": "^3.5.3",
-    "tailwindcss": "^3.4.1"
-  }
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^3.4.17"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -7,7 +7,7 @@ const projectsList = [
     name: 'Personal Portfolio',
     description: 'A responsive portfolio website built with Next.js and Tailwind CSS',
     image: '/image/web-portfolio.png',
-    technologies: ['Next.js', 'Tailwind CSS', 'React'],
+    technologies: ['Next.js', 'Tailwind CSS', 'JavaScript'],
     githubUrl: 'https://github.com/FaizBastomi/faizbastomi.github.io',
   },
   {
@@ -24,6 +24,13 @@ const projectsList = [
     image: '/image/wbot.png',
     technologies: ['JavaScript', 'Baileys', 'Node.js'],
     githubUrl: 'https://github.com/FaizBastomi/wbot',
+  },
+  {
+    id: 3,
+    name: 'URL Shortener',
+    description: 'A simple URL shortener service',
+    technologies: ['Next.js', 'Tailwind CSS', 'MongoDB', 'JavaScript'],
+    githubUrl: 'https://github.com/warung-hytam/url-shortener',
   },
 ];
 
