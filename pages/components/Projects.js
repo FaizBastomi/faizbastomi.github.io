@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const projectsList = [
   {
     id: 1,
     name: 'Personal Portfolio',
+    archived: false,
     description: 'A responsive portfolio website built with Next.js and Tailwind CSS',
     image: '/image/web-portfolio.png',
     technologies: ['Next.js', 'Tailwind CSS', 'JavaScript'],
@@ -13,6 +14,7 @@ const projectsList = [
   {
     id: 2,
     name: 'Discord Bot',
+    archived: false,
     description: 'A Discord bot for managing server and providing fun commands',
     technologies: ['TypeScript', 'DiscordJS', 'Node.js', 'SapphireJS'],
     githubUrl: 'https://github.com/FaizBastomi/kaguya-bot',
@@ -20,6 +22,7 @@ const projectsList = [
   {
     id: 3,
     name: 'WhatsApp Bot',
+    archived: true,
     description: 'A WhatsApp bot for automating tasks and providing information',
     image: '/image/wbot.png',
     technologies: ['JavaScript', 'Baileys', 'Node.js'],
@@ -28,6 +31,7 @@ const projectsList = [
   {
     id: 3,
     name: 'URL Shortener',
+    archived: false,
     description: 'A simple URL shortener service',
     technologies: ['Next.js', 'Tailwind CSS', 'MongoDB', 'JavaScript'],
     githubUrl: 'https://github.com/warung-hytam/url-shortener',
@@ -59,7 +63,19 @@ export default function Projects() {
             )}
           </div>
           <div className="p-4">
-            <h3 className="mb-2 text-lg font-bold">{project.name}</h3>
+            {project.archived ? (
+              <div className="flex justify-between">
+                <h3 className="mb-2 text-lg font-bold">{project.name}</h3>
+                <span className="text-[#fab387] px-2 py-1 relative group cursor-help">
+                  <FontAwesomeIcon className="me-1" icon={faTriangleExclamation} fontSize={18} />
+                  <span className="invisible absolute -top-6 -right-2 rounded bg-[#313244] px-2 py-1 text-xs group-hover:visible">
+                    Archived
+                  </span>
+                </span>
+              </div>
+            ) : (
+              <h3 className="mb-2 text-lg font-bold">{project.name}</h3>
+            )}
             <p className="mb-3 text-sm text-[#858aa0]">{project.description}</p>
             <div className="mb-3 flex flex-wrap gap-2">
               {project.technologies.map((tech, index) => (
