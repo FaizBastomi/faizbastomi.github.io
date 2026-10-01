@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Skill {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  level Int
+  // 0-100, drives the proficiency bar width
+
+  @@map("skills")
+}
+
+model Project {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  image        String?
+  technologies String[]
+  githubUrl    String
+  archived     Boolean  @default(false)
+
+  @@map("projects")
+}
