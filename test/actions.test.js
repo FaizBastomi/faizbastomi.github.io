@@ -34,18 +34,48 @@ for (const [input, expected] of [
 }
 
 // Save actions reject the same way: a returned { error }, never a throw.
-const saveSkill = (name, level) => {
+// Mirrors saveSkill in app/dashboard/actions.js, where text() trims the field first.
+const saveSkill = (raw) => {
+  const name = String(raw).trim();
   if (!name) return { error: 'Name is required' };
-  const n = Number(level);
-  if (!level || !Number.isFinite(n)) return { error: 'Level must be a number' };
-  return { name, level: Math.min(100, Math.max(0, Math.round(n))) };
+  return { name };
 };
-assert.deepEqual(saveSkill('', '50'), { error: 'Name is required' });
-assert.deepEqual(saveSkill('a', 'abc'), { error: 'Level must be a number' });
-// A cleared number input must not land as 0 -- Number('') is 0.
-assert.deepEqual(saveSkill('a', ''), { error: 'Level must be a number' });
-assert.deepEqual(saveSkill('a', '150'), { name: 'a', level: 100 });
-assert.deepEqual(saveSkill('a', '-1'), { name: 'a', level: 0 });
-assert.deepEqual(saveSkill('a', '50.4'), { name: 'a', level: 50 });
+assert.deepEqual(saveSkill(''), { error: 'Name is required' });
+assert.deepEqual(saveSkill('   '), { error: 'Name is required' });
+assert.deepEqual(saveSkill(' JavaScript '), { name: 'JavaScript' });
 
-console.log('actions ok');
+// Mirrors iconFor() in components/Skills.js (a JSX module plain node cannot import).
+// Every slug in the map must be a real devicon, or its tile renders a broken image --
+// verified against the Iconify API, since the set is external and can gain icons but not
+// silently lose them.
+const ICONS = {
+  javascript: 'javascript',
+  typescript: 'typescript',
+  react: 'react',
+  'react / next.js': 'nextjs',
+  'next.js': 'nextjs',
+  nodejs: 'nodejs',
+  'node.js': 'nodejs',
+  'tailwind css': 'tailwindcss',
+  tailwindcss: 'tailwindcss',
+  mongodb: 'mongodb',
+  python: 'python',
+  docker: 'docker',
+  github: 'github',
+  git: 'git',
+  prisma: 'prisma',
+  npm: 'npm',
+};
+const iconFor = (name) => ICONS[String(name).trim().toLowerCase()] ?? 'atom';
+
+const seeded = ['JavaScript', 'TypeScript', 'React / Next.js', 'Node.js', 'Tailwind CSS', 'MongoDB', 'Python', 'Docker'];
+for (const name of seeded) {
+  assert.notEqual(iconFor(name), 'atom', `${name} has no devicon`);
+}
+// Names arrive from free-text dashboard input, so matching must ignore case and padding.
+assert.equal(iconFor('  NODE.js '), 'nodejs');
+assert.equal(iconFor('JavaScript'), 'javascript');
+// An unmapped skill still renders, via the fallback.
+assert.equal(iconFor('Cobol'), 'atom');
+
+console.log('skills ok');

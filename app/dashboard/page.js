@@ -28,7 +28,6 @@ export default async function DashboardPage() {
             <SubmitForm action={saveSkill} submit="Save" className="flex flex-1 flex-wrap items-end gap-3">
               <input name="id" type="hidden" defaultValue={skill.id} />
               <Field name="name" label="Name" defaultValue={skill.name} className="min-w-40 flex-1" />
-              <Field name="level" label="Level" type="number" min={0} max={100} defaultValue={skill.level} className="w-24" />
             </SubmitForm>
             <SubmitForm action={deleteSkill} submit="Delete" className="flex items-center gap-3">
               <input name="id" type="hidden" defaultValue={skill.id} />
@@ -40,7 +39,6 @@ export default async function DashboardPage() {
         <div className={`${card} flex flex-wrap items-end gap-3`}>
           <SubmitForm action={saveSkill} submit="Add" className="flex flex-1 flex-wrap items-end gap-3">
             <Field name="name" label="Name" placeholder="New skill" className="min-w-40 flex-1" />
-            <Field name="level" label="Level" type="number" min={0} max={100} defaultValue={50} className="w-24" />
           </SubmitForm>
         </div>
       </div>

@@ -8,10 +8,8 @@ datasource db {
 }
 
 model Skill {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  level Int
-  // 0-100, drives the proficiency bar width
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
 
   @@map("skills")
 }

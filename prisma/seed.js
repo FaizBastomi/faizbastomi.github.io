@@ -38,14 +38,14 @@ const projects = [
 ];
 
 const skills = [
-  { name: 'JavaScript', level: 90 },
-  { name: 'TypeScript', level: 75 },
-  { name: 'React / Next.js', level: 80 },
-  { name: 'Node.js', level: 85 },
-  { name: 'Tailwind CSS', level: 88 },
-  { name: 'MongoDB', level: 70 },
-  { name: 'Python', level: 60 },
-  { name: 'Docker', level: 55 },
+  { name: 'JavaScript' },
+  { name: 'TypeScript' },
+  { name: 'React / Next.js' },
+  { name: 'Node.js' },
+  { name: 'Tailwind CSS' },
+  { name: 'MongoDB' },
+  { name: 'Python' },
+  { name: 'Docker' },
 ];
 
 async function main() {

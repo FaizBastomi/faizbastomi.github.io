@@ -50,11 +50,8 @@ export async function saveSkill(formData) {
   await requireAuth();
   const name = text(formData, 'name');
   if (!name) return { error: 'Name is required' };
-  const level = Number(text(formData, 'level'));
-  // `Number('')` is 0, so a cleared number input needs its own check or it silently saves 0.
-  if (!text(formData, 'level') || !Number.isFinite(level)) return { error: 'Level must be a number' };
 
-  const data = { name, level: Math.min(100, Math.max(0, Math.round(level))) };
+  const data = { name };
   const existing = id(formData);
 
   if (existing) await prisma.skill.update({ where: { id: existing }, data });
