@@ -9,7 +9,7 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
-    "test": "node test/auth.test.js",
+    "test": "node test/auth.test.js && node test/actions.test.js",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
   },

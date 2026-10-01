@@ -13,16 +13,16 @@ export function Field({ name, label, type = 'text', defaultValue, className = ''
   );
 }
 
-// redirect() throws a digest-tagged error that must reach Next intact, so it is rethrown
-// instead of being shown to the user as a form error.
+// The action returns { error } for validation, so the message survives the trip. redirect()'s
+// digest-tagged throw must reach Next intact; any other throw is replaced, since production
+// strips its message.
 export default function SubmitForm({ action, submit, children, className = '' }) {
-  const [error, formAction] = useActionState(async (_prev, formData) => {
+  const [error, formAction] = useActionState(async (prev, formData) => {
     try {
-      await action(formData);
-      return null;
+      return (await action(formData))?.error ?? null;
     } catch (e) {
       if (typeof e?.digest === 'string' && e.digest.startsWith('NEXT_REDIRECT')) throw e;
-      return e?.message || 'Something went wrong';
+      return 'Something went wrong. Please try again.';
     }
   }, null);
 
@@ -32,7 +32,11 @@ export default function SubmitForm({ action, submit, children, className = '' })
       <button className="mt-2 cursor-pointer rounded bg-[#89b4fa] px-3 py-1 text-sm font-semibold text-[#1e1e2e]">
         {submit}
       </button>
-      {error && <p className="mt-2 text-sm text-[#f38ba8]">{error}</p>}
+      {error && (
+        <p role="alert" className="mt-2 text-sm text-[#f38ba8]">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

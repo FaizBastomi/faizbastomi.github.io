@@ -5,32 +5,22 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/db';
 import { checkPassword, clearAuthCookie, dashboardPath, requireAuth, setAuthCookie } from '@/lib/auth';
 
-// Note: this file is 'use server', so every export must be an async function.
-// Validation failures throw a plain Error, which the form renders as a message.
+// 'use server': every export must be async. Validation returns { error } and never throws --
+// production strips the message off anything a server action throws.
 
 const text = (fd, key) => String(fd.get(key) ?? '').trim();
 
-function requireName(value) {
-  if (!value) throw new Error('Name is required');
-  return value;
-}
-
-function requireLevel(value) {
-  const level = Number(value);
-  if (!Number.isFinite(level)) throw new Error('Level must be a number');
-  return Math.min(100, Math.max(0, Math.round(level)));
-}
-
+// http(s) only, so an entry can't smuggle a javascript: or data: href onto the page.
+// Returns the clean href, or { error } to hand back to the form.
 function requireUrl(value) {
-  if (!value) throw new Error('GitHub URL is required');
-  // Only http(s), so a dashboard entry can't smuggle a javascript: or data: href onto the page.
+  if (!value) return { error: 'GitHub URL is required' };
   let url;
   try {
     url = new URL(value);
   } catch {
-    throw new Error('GitHub URL is not a valid URL');
+    return { error: 'GitHub URL is not a valid URL' };
   }
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') throw new Error('GitHub URL must start with http(s)://');
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return { error: 'GitHub URL must start with http(s)://' };
   return url.href;
 }
 
@@ -45,7 +35,7 @@ function id(fd) {
 }
 
 export async function login(formData) {
-  if (!checkPassword(text(formData, 'password'))) throw new Error('Wrong password');
+  if (!checkPassword(text(formData, 'password'))) return { error: 'Wrong password' };
   await setAuthCookie();
   redirect(`/${dashboardPath()}`);
 }
@@ -58,7 +48,13 @@ export async function logout() {
 
 export async function saveSkill(formData) {
   await requireAuth();
-  const data = { name: requireName(text(formData, 'name')), level: requireLevel(text(formData, 'level')) };
+  const name = text(formData, 'name');
+  if (!name) return { error: 'Name is required' };
+  const level = Number(text(formData, 'level'));
+  // `Number('')` is 0, so a cleared number input needs its own check or it silently saves 0.
+  if (!text(formData, 'level') || !Number.isFinite(level)) return { error: 'Level must be a number' };
+
+  const data = { name, level: Math.min(100, Math.max(0, Math.round(level))) };
   const existing = id(formData);
 
   if (existing) await prisma.skill.update({ where: { id: existing }, data });
@@ -77,12 +73,19 @@ export async function deleteSkill(formData) {
 
 export async function saveProject(formData) {
   await requireAuth();
+  const name = text(formData, 'name');
+  if (!name) return { error: 'Name is required' };
+  const description = text(formData, 'description');
+  if (!description) return { error: 'Description is required' };
+  const githubUrl = requireUrl(text(formData, 'githubUrl'));
+  if (githubUrl.error) return githubUrl;
+
   const data = {
-    name: requireName(text(formData, 'name')),
-    description: requireName(text(formData, 'description')),
+    name,
+    description,
     image: text(formData, 'image') || null,
     technologies: list(formData, 'technologies'),
-    githubUrl: requireUrl(text(formData, 'githubUrl')),
+    githubUrl,
     archived: formData.get('archived') === 'on',
   };
   const existing = id(formData);

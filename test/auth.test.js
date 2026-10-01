@@ -1,6 +1,6 @@
 // Run with: node test/auth.test.js
-// Mirrors the crypto in lib/auth.js. `server-only` is a Next-internal alias, so lib/auth.js
-// itself cannot be imported from plain node -- this exercises the same logic standalone.
+// Mirrors the crypto in lib/auth.js, which plain node cannot import (`server-only` is a
+// Next-internal alias).
 const assert = require('node:assert');
 const { createHash, createHmac, timingSafeEqual } = require('node:crypto');
 
@@ -45,8 +45,8 @@ assert.equal(verifyToken(''), false);
 const past = String(Date.now() - 1000);
 assert.equal(verifyToken(`${past}.${sign(past)}`), false);
 
-// Changing the secret invalidates outstanding sessions -- this is how a rotated
-// DASHBOARD_PATH logs everyone out.
+// Changing the secret invalidates outstanding sessions -- how a rotated DASHBOARD_PATH
+// logs everyone out.
 assert.equal(verifyToken(token, 'b'.repeat(64)), false);
 
 console.log('auth ok');
