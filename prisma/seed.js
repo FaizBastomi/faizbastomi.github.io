@@ -37,10 +37,13 @@ const projects = [
   },
 ];
 
+// Names must slugify to a real devicon (lowercase alphanumerics only) -- components/Skills.js
+// derives the icon straight from the name. Keep each entry a single technology.
 const skills = [
   { name: 'JavaScript' },
   { name: 'TypeScript' },
-  { name: 'React / Next.js' },
+  { name: 'React' },
+  { name: 'Next.js' },
   { name: 'Node.js' },
   { name: 'Tailwind CSS' },
   { name: 'MongoDB' },

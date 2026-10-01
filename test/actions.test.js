@@ -44,38 +44,32 @@ assert.deepEqual(saveSkill(''), { error: 'Name is required' });
 assert.deepEqual(saveSkill('   '), { error: 'Name is required' });
 assert.deepEqual(saveSkill(' JavaScript '), { name: 'JavaScript' });
 
-// Mirrors iconFor() in components/Skills.js (a JSX module plain node cannot import).
-// Every slug in the map must be a real devicon, or its tile renders a broken image --
-// verified against the Iconify API, since the set is external and can gain icons but not
-// silently lose them.
-const ICONS = {
-  javascript: 'javascript',
-  typescript: 'typescript',
-  react: 'react',
-  'react / next.js': 'nextjs',
-  'next.js': 'nextjs',
-  nodejs: 'nodejs',
-  'node.js': 'nodejs',
-  'tailwind css': 'tailwindcss',
-  tailwindcss: 'tailwindcss',
-  mongodb: 'mongodb',
-  python: 'python',
-  docker: 'docker',
-  github: 'github',
-  git: 'git',
-  prisma: 'prisma',
-  npm: 'npm',
-};
-const iconFor = (name) => ICONS[String(name).trim().toLowerCase()] ?? 'atom';
+// Mirrors slug() in components/Skills.js (a JSX module plain node cannot import).
+// Skill names become devicon slugs directly, so this pins the mapping the seed relies on.
+// Every slug below was checked against the Iconify API; a name that slugifies to something
+// with no icon renders blank, which is why the seed avoids compound names like "React / Next.js".
+const slug = (name) =>
+  String(name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
 
-const seeded = ['JavaScript', 'TypeScript', 'React / Next.js', 'Node.js', 'Tailwind CSS', 'MongoDB', 'Python', 'Docker'];
-for (const name of seeded) {
-  assert.notEqual(iconFor(name), 'atom', `${name} has no devicon`);
+for (const [name, expected] of Object.entries({
+  JavaScript: 'javascript',
+  TypeScript: 'typescript',
+  'Next.js': 'nextjs',
+  'Node.js': 'nodejs',
+  'Tailwind CSS': 'tailwindcss',
+  MongoDB: 'mongodb',
+  Python: 'python',
+  Docker: 'docker',
+})) {
+  assert.equal(slug(name), expected, `${name} should slugify to ${expected}`);
 }
-// Names arrive from free-text dashboard input, so matching must ignore case and padding.
-assert.equal(iconFor('  NODE.js '), 'nodejs');
-assert.equal(iconFor('JavaScript'), 'javascript');
-// An unmapped skill still renders, via the fallback.
-assert.equal(iconFor('Cobol'), 'atom');
+
+// Names arrive from free-text dashboard input, so slugs ignore case and punctuation.
+assert.equal(slug('  NODE.js '), 'nodejs');
+assert.equal(slug('C++'), 'c');
+// Nothing left after stripping -- the component falls back to a neutral icon for these.
+assert.equal(slug('!!!'), '');
 
 console.log('skills ok');

@@ -8,7 +8,7 @@ Skills and Projects are stored in MongoDB and managed through a private dashboar
 - Prisma 6 + MongoDB
 - Tailwind CSS 4
 - Fontawesome (Icons)
-- Iconify devicons (skill icons, loaded from their CDN)
+- Iconify (@iconify/react, skill icons from the devicon set)
 - Plus Jakarta Sans (Font)
 - Catppuccin (Mocha Palette)
 
@@ -23,6 +23,10 @@ npm run dev
 ```
 
 MongoDB has no migrations, so `db:push` (not `migrate`) is the schema workflow.
+
+Skill icons are derived from the skill name — `JavaScript` → `devicon:javascript` — so a name must
+slugify to a real icon (lowercase alphanumerics only, one technology per entry). `React / Next.js`
+renders blank because it slugifies to `reactnextjs`; the seed splits it into `React` and `Next.js`.
 
 ## Environment variables
 
