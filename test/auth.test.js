@@ -1,6 +1,5 @@
 // Run with: node test/auth.test.js
-// Mirrors the crypto in lib/auth.js, which plain node cannot import (`server-only` is a
-// Next-internal alias).
+// Mirrors the crypto in lib/auth.js, which plain node cannot import (`server-only` is a Next alias).
 const assert = require('node:assert');
 const { createHash, createHmac, timingSafeEqual } = require('node:crypto');
 

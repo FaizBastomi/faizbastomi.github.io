@@ -13,9 +13,8 @@ export function Field({ name, label, type = 'text', defaultValue, className = ''
   );
 }
 
-// The action returns { error } for validation, so the message survives the trip. redirect()'s
-// digest-tagged throw must reach Next intact; any other throw is replaced, since production
-// strips its message.
+// Validation arrives as { error } so the message survives the trip; redirect()'s digest-tagged
+// throw must reach Next intact, any other throw is replaced since production strips its message.
 export default function SubmitForm({ action, submit, children, className = '' }) {
   const [error, formAction] = useActionState(async (prev, formData) => {
     try {

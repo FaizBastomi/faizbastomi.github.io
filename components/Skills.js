@@ -1,9 +1,7 @@
 import { Icon } from '@iconify/react';
 
-// The icon name is derived from the skill name, so there is no lookup table to keep in sync:
-// "JavaScript" -> javascript, "Node.js" -> nodejs, "Tailwind CSS" -> tailwindcss. Iconify
-// loads the matching devicon over the network. A name that has no matching icon (or a typo)
-// renders nothing rather than a broken image, so anything unrecognised gets a neutral slug.
+// The icon name is derived from the skill name, so there is no lookup table to keep in sync.
+// An unrecognised name renders blank rather than broken, hence the neutral 'atom' fallback.
 const slug = (name) =>
   String(name)
     .toLowerCase()

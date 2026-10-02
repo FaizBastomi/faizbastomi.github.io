@@ -44,10 +44,8 @@ assert.deepEqual(saveSkill(''), { error: 'Name is required' });
 assert.deepEqual(saveSkill('   '), { error: 'Name is required' });
 assert.deepEqual(saveSkill(' JavaScript '), { name: 'JavaScript' });
 
-// Mirrors slug() in components/Skills.js (a JSX module plain node cannot import).
-// Skill names become devicon slugs directly, so this pins the mapping the seed relies on.
-// Every slug below was checked against the Iconify API; a name that slugifies to something
-// with no icon renders blank, which is why the seed avoids compound names like "React / Next.js".
+// Mirrors slug() in components/Skills.js (a JSX module plain node cannot import), pinning the
+// devicon mapping the seed relies on. Every slug below was checked against the Iconify API.
 const slug = (name) =>
   String(name)
     .toLowerCase()
