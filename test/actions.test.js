@@ -70,4 +70,42 @@ assert.equal(slug('C++'), 'c');
 // Nothing left after stripping -- the component falls back to a neutral icon for these.
 assert.equal(slug('!!!'), '');
 
+// Mirrors ids() in app/dashboard/actions.js. The drag order is a client-supplied string, so it is
+// filtered to real ObjectIds before it reaches Prisma and capped at MAX_ORDER.
+const OBJECT_ID = /^[0-9a-f]{24}$/i;
+const MAX_ORDER = 500;
+const ids = (value) =>
+  String(value ?? '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter((id) => OBJECT_ID.test(id))
+    .slice(0, MAX_ORDER);
+
+const a = 'a'.repeat(24);
+const b = '0123456789abcdef01234567';
+assert.deepEqual(ids(`${a}, ${b}`), [a, b]);
+assert.deepEqual(ids(''), []);
+assert.deepEqual(ids(undefined), []);
+// Anything that is not a bare ObjectId is dropped rather than passed on to the query.
+assert.deepEqual(ids(`${a},../../etc/passwd,{"$ne":null},${b};drop`), [a]);
+// The cap bounds how many writes one request can queue.
+assert.equal(ids(Array.from({ length: MAX_ORDER + 10 }, () => a).join(',')).length, MAX_ORDER);
+
+// Mirrors move() in components/DashboardList.js -- the reorder arithmetic behind every drag and
+// arrow-key nudge.
+const move = (list, from, to) => {
+  const next = [...list];
+  const [id] = next.splice(from, 1);
+  next.splice(to, 0, id);
+  return next;
+};
+
+assert.deepEqual(move(['a', 'b', 'c'], 2, 0), ['c', 'a', 'b']);
+assert.deepEqual(move(['a', 'b', 'c'], 0, 2), ['b', 'c', 'a']);
+assert.deepEqual(move(['a', 'b', 'c'], 1, 1), ['a', 'b', 'c']);
+// The source list is never mutated, since the caller keeps it as the revert target.
+const source = ['a', 'b', 'c'];
+move(source, 0, 2);
+assert.deepEqual(source, ['a', 'b', 'c']);
+
 console.log('skills ok');

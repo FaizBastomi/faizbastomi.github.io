@@ -34,6 +34,38 @@ function id(fd) {
   return text(fd, 'id');
 }
 
+const OBJECT_ID = /^[0-9a-f]{24}$/i;
+const MAX_ORDER = 500;
+
+// The client sends a comma-separated id list, so both halves are untrusted: non-ids are dropped
+// rather than reaching Prisma, and the cap keeps a crafted request from queueing endless writes.
+const ids = (value) =>
+  String(value ?? '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter((id) => OBJECT_ID.test(id))
+    .slice(0, MAX_ORDER);
+
+// Prisma has no MongoDB transactions, so each row is written in turn; a drag rewrites them all,
+// so a half-applied order cannot survive as a state the list can render.
+async function reorder(model, values) {
+  for (const [position, id] of values.entries()) {
+    await prisma[model].update({ where: { id }, data: { position } });
+  }
+  revalidatePath('/');
+  revalidatePath('/dashboard');
+}
+
+export async function reorderSkills(order) {
+  await requireAuth();
+  await reorder('skill', ids(order));
+}
+
+export async function reorderProjects(order) {
+  await requireAuth();
+  await reorder('project', ids(order));
+}
+
 export async function login(formData) {
   if (!checkPassword(text(formData, 'password'))) return { error: 'Wrong password' };
   await setAuthCookie();

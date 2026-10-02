@@ -2,16 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 export default function Projects({ projects }) {
-  // Sort the projects: items with images first, then items without images
-  const sortedProjects = [...projects].sort((a, b) => {
-    if (a.image && !b.image) return -1;
-    if (!a.image && b.image) return 1;
-    return 0;
-  });
-
   return (
     <div className="grid auto-rows-auto grid-cols-1 gap-6 md:grid-cols-3">
-      {sortedProjects.map((project) => (
+      {projects.map((project) => (
         <div
           key={project.id}
           className="overflow-hidden rounded-xl border border-[#89b4fa] bg-[#1e1e2e] transition-all hover:shadow-lg hover:shadow-[#89b4fa]/20"

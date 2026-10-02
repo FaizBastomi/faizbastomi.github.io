@@ -8,8 +8,9 @@ datasource db {
 }
 
 model Skill {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  position Int    @default(0)
 
   @@map("skills")
 }
@@ -22,6 +23,7 @@ model Project {
   technologies String[]
   githubUrl    String
   archived     Boolean  @default(false)
+  position     Int      @default(0)
 
   @@map("projects")
 }

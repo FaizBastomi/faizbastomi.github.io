@@ -28,6 +28,11 @@ Skill icons are derived from the skill name — `JavaScript` → `devicon:javasc
 slugify to a real icon (lowercase alphanumerics only, one technology per entry). `React / Next.js`
 renders blank because it slugifies to `reactnextjs`; the seed splits it into `React` and `Next.js`.
 
+Order is set in the dashboard, by dragging a card or focusing its handle and pressing the arrow
+keys. Both sections also collapse, and each browser remembers that separately. Rows that were
+never reordered sit at `position` 0 and fall back to `id`, so the order predating this feature is
+kept until you move something.
+
 ## Environment variables
 
 | Variable             | Purpose                                                      |

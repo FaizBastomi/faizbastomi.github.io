@@ -5,10 +5,14 @@ import Skills from '@/components/Skills';
 // Edits should show up on the next request, so never cache this page.
 export const dynamic = 'force-dynamic';
 
+// position first, id as the tie-break: rows that were never dragged all sit at 0 and fall back to
+// the order they had before the dashboard could reorder them.
+const byOrder = [{ position: 'asc' }, { id: 'asc' }];
+
 export default async function Home() {
   const [skills, projects] = await Promise.all([
-    prisma.skill.findMany({ orderBy: { id: 'asc' } }),
-    prisma.project.findMany({ orderBy: { id: 'asc' } }),
+    prisma.skill.findMany({ orderBy: byOrder }),
+    prisma.project.findMany({ orderBy: byOrder }),
   ]);
 
   return (
