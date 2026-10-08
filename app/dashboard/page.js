@@ -101,7 +101,6 @@ export default async function DashboardPage() {
             </SubmitForm>
             <SubmitForm action={deleteProject} submit="Delete" className="flex items-center gap-2">
               <input name="id" type="hidden" defaultValue={project.id} />
-              <button className={`${btn} mt-2`}>Delete</button>
             </SubmitForm>
           </div>
         ))}
