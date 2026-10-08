@@ -31,8 +31,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={JakartaSans.className}>
-      <body className="antialiased">
-        {children}
+      <body className="flex min-h-screen flex-col antialiased">
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>
