@@ -8,7 +8,7 @@ Skills and Projects are stored in MongoDB and managed through a private dashboar
 - Prisma 6 + MongoDB
 - Tailwind CSS 4
 - Fontawesome (Icons)
-- Iconify (@iconify/react, skill icons from the devicon set)
+- Iconify API (skill icons from the devicon set)
 - Plus Jakarta Sans (Font)
 - Catppuccin (Mocha Palette)
 
