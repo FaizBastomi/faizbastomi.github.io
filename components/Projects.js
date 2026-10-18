@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,9 +10,15 @@ export default function Projects({ projects }) {
           key={project.id}
           className="overflow-hidden rounded-xl border border-[#89b4fa] bg-[#1e1e2e] transition-all hover:shadow-lg hover:shadow-[#89b4fa]/20"
         >
-          <div className="h-52 overflow-hidden">
+          <div className="relative h-52 overflow-hidden">
             {project.image ? (
-              <img src={project.image} alt={project.name} className="h-full w-full object-cover" />
+              <Image
+                src={project.image}
+                alt={project.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+              />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-[#313244]">
                 <span className="text-lg font-semibold">{project.name}</span>
