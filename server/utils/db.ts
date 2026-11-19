@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-// Keeps one client across dev hot-reloads instead of leaking a connection per reload.
-const globalForPrisma = globalThis;
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 

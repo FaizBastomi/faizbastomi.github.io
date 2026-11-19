@@ -1,5 +1,8 @@
 package.json
 package-lock.json
+pnpm-lock.yaml
 README.md
-postcss.config.mjs
 .prettierrc.js
+.nuxt
+.output
+.next

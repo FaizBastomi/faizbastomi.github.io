@@ -9,9 +9,11 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# nuxt
+.nuxt/
+.output/
+dist/
+graphify-out/
 
 # production
 /build
@@ -34,7 +36,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # vscode config
 .vscode

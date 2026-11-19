@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #1e1e2e;
+  --foreground: #cacede;
+  font-family:
+    'Plus Jakarta Sans',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: inherit;
+}
+
+a[href],
+button,
+summary,
+select,
+input[type='checkbox'],
+input[type='radio'],
+[role='button'] {
+  cursor: pointer;
+}
+
+:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 2px solid #89b4fa;
+  outline-offset: 2px;
+}

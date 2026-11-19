@@ -1,10 +1,10 @@
-## Portfolio website using [Nextjs](https://nextjs.org).
+## Portfolio website using [Nuxt](https://nuxt.com).
 
 Skills and Projects are stored in MongoDB and managed through a private dashboard.
 
 ### What used?
 
-- Next.js 16 (App Router) + Vercel
+- Nuxt 4 + Vite
 - Prisma 6 + MongoDB
 - Tailwind CSS 4
 - Fontawesome (Icons)
@@ -15,11 +15,11 @@ Skills and Projects are stored in MongoDB and managed through a private dashboar
 ## Local setup
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env   # then fill it in
-npm run db:push        # create the collections
-npm run db:seed        # optional: load the starter projects and skills
-npm run dev
+pnpm db:push           # create the collections
+pnpm db:seed           # optional: load the starter projects and skills
+pnpm dev
 ```
 
 MongoDB has no migrations, so `db:push` (not `migrate`) is the schema workflow.
@@ -67,16 +67,16 @@ cookie expires — rotate `SESSION_SECRET` as well to log everyone out immediate
 ## Deploying to Vercel
 
 1. Push to GitHub and import the repo at [vercel.com/new](https://vercel.com/new). Vercel detects
-   Next.js; no build settings needed. `postinstall` runs `prisma generate`.
+   Nuxt; no build settings needed. `postinstall` runs `prisma generate`.
 2. Add the four environment variables above under **Settings → Environment Variables**.
-3. Run `npm run db:push` once against the production database (e.g. from a local shell with
-   `DATABASE_URL` pointed at the production cluster), then `npm run db:seed` if you want the
+3. Run `pnpm db:push` once against the production database (e.g. from a local shell with
+   `DATABASE_URL` pointed at the production cluster), then `pnpm db:seed` if you want the
    starter content.
 
 ## Tests
 
 ```bash
-npm test
+pnpm test
 ```
 
 Covers the dashboard password check and session token signing/verification.

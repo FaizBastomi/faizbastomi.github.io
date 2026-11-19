@@ -1,7 +1,7 @@
 // Run with: node test/actions.test.js
 // requireUrl is mirrored from app/dashboard/actions.js, which is a 'use server' module and
 // cannot be imported from plain node.
-const assert = require('node:assert');
+import assert from 'node:assert';
 
 function requireUrl(value) {
   if (!value) return { error: 'GitHub URL is required' };
