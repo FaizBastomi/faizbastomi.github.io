@@ -48,4 +48,20 @@ assert.equal(verifyToken(`${past}.${sign(past)}`), false);
 // logs everyone out.
 assert.equal(verifyToken(token, 'b'.repeat(64)), false);
 
+// Secret dashboard route matching logic used by session endpoint and slug routing
+const isDashboardRoute = (slug, secret) => {
+  if (!secret) return false;
+  const s = String(slug || '').replace(/^\/+|\/+$/g, '');
+  return s === secret || s === `${secret}/login`;
+};
+
+assert.equal(isDashboardRoute('c38745dd', 'c38745dd'), true);
+assert.equal(isDashboardRoute('c38745dd/login', 'c38745dd'), true);
+assert.equal(isDashboardRoute('/c38745dd/', 'c38745dd'), true);
+assert.equal(isDashboardRoute('/c38745dd/login/', 'c38745dd'), true);
+assert.equal(isDashboardRoute('c38745dd/other', 'c38745dd'), false);
+assert.equal(isDashboardRoute('dashboard', 'c38745dd'), false);
+assert.equal(isDashboardRoute('', 'c38745dd'), false);
+assert.equal(isDashboardRoute('c38745dd', ''), false);
+
 console.log('auth ok');

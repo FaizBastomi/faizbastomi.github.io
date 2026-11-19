@@ -1,31 +1,38 @@
 <script setup lang="ts">
-const route = useRoute();
-const config = useRuntimeConfig();
-const secret = (config.dashboardPath as string) || '';
-const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug || '';
+definePageMeta({
+  key: (route) => route.fullPath,
+});
 
-if (!secret || (slug !== secret && slug !== `${secret}/login`)) {
+const route = useRoute();
+
+// ponytail: normalize slug parameter array or string into clean path
+const slug = computed(() => {
+  const s = route.params.slug;
+  return (Array.isArray(s) ? s.join('/') : s || '').replace(/^\/+|\/+$/g, '');
+});
+
+const { data: session, error } = await useFetch('/api/dashboard/session', {
+  query: { slug },
+});
+
+if (error.value || !session.value) {
   throw createError({ statusCode: 404, statusMessage: 'Not Found', fatal: true });
 }
 
-const isLoginRoute = computed(() => slug === `${secret}/login`);
-
-const { data: auth } = await useFetch('/api/dashboard/auth-status');
-
-if (!isLoginRoute.value && !auth.value?.authed) {
-  await navigateTo(`/${secret}/login`);
-} else if (isLoginRoute.value && auth.value?.authed) {
-  await navigateTo(`/${secret}`);
+if (!session.value.isLogin && !session.value.authed) {
+  await navigateTo(`/${session.value.dashboardPath}/login`);
+} else if (session.value.isLogin && session.value.authed) {
+  await navigateTo(`/${session.value.dashboardPath}`);
 }
 
 useHead({
-  title: isLoginRoute.value ? 'Login' : 'Dashboard',
+  title: computed(() => (session.value?.isLogin ? 'Login' : 'Dashboard')),
 });
 </script>
 
 <template>
   <div>
-    <DashboardLoginView v-if="isLoginRoute" />
+    <DashboardLoginView v-if="session?.isLogin" />
     <DashboardView v-else />
   </div>
 </template>

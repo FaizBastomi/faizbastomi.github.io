@@ -5,7 +5,7 @@ import { getCookie, setCookie, deleteCookie, createError } from 'h3';
 export const COOKIE = 'dash';
 export const MAX_AGE = 60 * 60 * 24 * 7;
 
-export const dashboardPath = () => process.env.DASHBOARD_PATH || '';
+export const dashboardPath = () => (process.env.DASHBOARD_PATH || '').replace(/^\/+|\/+$/g, '');
 
 const matches = (a = '', b = '') =>
   timingSafeEqual(createHash('sha256').update(a).digest(), createHash('sha256').update(b).digest());
@@ -37,19 +37,18 @@ export function isAuthed(event: H3Event) {
 }
 
 export function setAuthCookie(event: H3Event) {
-  const path = dashboardPath() ? `/${dashboardPath()}` : '/';
+  // ponytail: cookie path '/' allows both dashboard pages and /api/dashboard/* endpoints to receive it
   setCookie(event, COOKIE, createToken(), {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
     maxAge: MAX_AGE,
-    path,
+    path: '/',
   });
 }
 
 export function clearAuthCookie(event: H3Event) {
-  const path = dashboardPath() ? `/${dashboardPath()}` : '/';
-  deleteCookie(event, COOKIE, { path });
+  deleteCookie(event, COOKIE, { path: '/' });
 }
 
 export function requireAuth(event: H3Event) {
