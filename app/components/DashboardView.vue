@@ -137,9 +137,9 @@ async function onLogout() {
       </div>
     </aside>
 
-    <!-- Main Content Area: independently scrollable workspace -->
-    <section class="min-h-0 min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 md:h-full md:p-8" aria-label="Dashboard workspace">
-      <header class="mb-6 border-b border-[#313244] pb-4">
+    <!-- Main Content Area: stationary header with independently scrollable workspace body -->
+    <section class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:h-full" aria-label="Dashboard workspace">
+      <header class="flex-shrink-0 border-b border-[#313244] bg-[#1e1e2e] px-4 py-4 sm:px-6 sm:py-5 md:px-8">
         <h1 class="text-2xl font-bold tracking-tight text-[#cdd6f4]">
           {{ activeTab === 'projects' ? 'Project Manager' : 'Skill Manager' }}
         </h1>
@@ -152,9 +152,11 @@ async function onLogout() {
         </p>
       </header>
 
-      <DashboardProjectsManager v-if="activeTab === 'projects'" :projects="projects" @refresh="refreshProjects" />
+      <div class="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
+        <DashboardProjectsManager v-if="activeTab === 'projects'" :projects="projects" @refresh="refreshProjects" />
 
-      <DashboardSkillsManager v-else-if="activeTab === 'skills'" :skills="skills" @refresh="refreshSkills" />
+        <DashboardSkillsManager v-else-if="activeTab === 'skills'" :skills="skills" @refresh="refreshSkills" />
+      </div>
     </section>
   </div>
 </template>
