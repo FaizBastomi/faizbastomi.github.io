@@ -27,6 +27,7 @@ if (!session.value.isLogin && !session.value.authed) {
 
 useHead({
   title: computed(() => (session.value?.isLogin ? 'Login' : 'Dashboard')),
+  meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 });
 </script>
 

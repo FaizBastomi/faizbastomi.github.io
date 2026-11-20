@@ -80,6 +80,7 @@ defineProps<{
       <div class="border-t border-[#313244]/60 px-5 py-3">
         <a
           :href="project.githubUrl"
+          :aria-label="`View source code for ${project.name} on GitHub (opens in new tab)`"
           class="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-[#89b4fa] transition-colors hover:text-[#b4befe] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
           target="_blank"
           rel="noopener noreferrer"

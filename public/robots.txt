@@ -1,0 +1,7 @@
+# Allow all search engines to crawl public portfolio pages
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://faizdev.my.id/sitemap.xml

@@ -19,6 +19,54 @@ const {
 } = await useFetch('/api/projects', {
   default: () => [],
 });
+
+// ponytail: structured data graph for rich search results and person knowledge graph
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': 'https://faizdev.my.id/#website',
+            url: 'https://faizdev.my.id/',
+            name: 'Faiz Bastomi Portfolio',
+            description:
+              'Full-stack developer and open source builder developing web apps, developer tooling, and automated services.',
+            publisher: {
+              '@id': 'https://faizdev.my.id/#person',
+            },
+          },
+          {
+            '@type': 'Person',
+            '@id': 'https://faizdev.my.id/#person',
+            name: 'Faiz Bastomi',
+            url: 'https://faizdev.my.id/',
+            image: 'https://faizdev.my.id/image/profile.jpg',
+            jobTitle: 'Full-Stack Developer',
+            description:
+              'Full-stack developer and open source builder focused on TypeScript, Nuxt, Node.js, and clean software engineering.',
+            sameAs: ['https://github.com/FaizBastomi'],
+            knowsAbout: [
+              'TypeScript',
+              'JavaScript',
+              'Nuxt',
+              'Vue.js',
+              'Node.js',
+              'Tailwind CSS',
+              'MongoDB',
+              'Docker',
+              'Go',
+              'Python',
+            ],
+          },
+        ],
+      }),
+    },
+  ],
+});
 </script>
 
 <template>

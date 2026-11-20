@@ -7,7 +7,8 @@ defineProps<{
 }>();
 
 useHead({
-  title: 'Not Found',
+  title: computed(() => `${props.error?.status || 404} | Page Not Found`),
+  meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 });
 </script>
 
