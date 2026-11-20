@@ -70,7 +70,12 @@ async function onSubmit() {
       </div>
 
       <div class="mt-6 text-center">
-        <a href="/" class="text-xs text-[#a6adc8] transition-colors hover:text-[#89b4fa]"> Return to home page </a>
+        <a
+          href="/"
+          class="inline-flex min-h-11 items-center justify-center text-xs text-[#a6adc8] transition-colors hover:text-[#89b4fa]"
+        >
+          Return to home page
+        </a>
       </div>
     </div>
   </div>

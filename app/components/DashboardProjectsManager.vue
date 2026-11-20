@@ -145,7 +145,7 @@ async function deleteProject(id: string) {
       <div class="flex flex-wrap items-center gap-2">
         <button
           type="button"
-          class="rounded-lg px-3 py-1.5 text-xs font-medium transition-colors"
+          class="inline-flex min-h-11 items-center rounded-lg px-3.5 py-1.5 text-xs font-medium transition-colors"
           :class="filter === 'all' ? 'bg-[#89b4fa] text-[#1e1e2e]' : 'bg-[#181825] text-[#a6adc8] hover:text-[#cdd6f4]'"
           @click="filter = 'all'"
         >
@@ -153,7 +153,7 @@ async function deleteProject(id: string) {
         </button>
         <button
           type="button"
-          class="rounded-lg px-3 py-1.5 text-xs font-medium transition-colors"
+          class="inline-flex min-h-11 items-center rounded-lg px-3.5 py-1.5 text-xs font-medium transition-colors"
           :class="filter === 'active' ? 'bg-[#89b4fa] text-[#1e1e2e]' : 'bg-[#181825] text-[#a6adc8] hover:text-[#cdd6f4]'"
           @click="filter = 'active'"
         >
@@ -161,7 +161,7 @@ async function deleteProject(id: string) {
         </button>
         <button
           type="button"
-          class="rounded-lg px-3 py-1.5 text-xs font-medium transition-colors"
+          class="inline-flex min-h-11 items-center rounded-lg px-3.5 py-1.5 text-xs font-medium transition-colors"
           :class="filter === 'archived' ? 'bg-[#89b4fa] text-[#1e1e2e]' : 'bg-[#181825] text-[#a6adc8] hover:text-[#cdd6f4]'"
           @click="filter = 'archived'"
         >
@@ -441,7 +441,11 @@ async function deleteProject(id: string) {
         <p class="mt-1 text-sm text-[#a6adc8]">{{ project.description }}</p>
         <div class="mt-3 flex items-center justify-between border-t border-[#313244] pt-3">
           <span class="text-xs text-[#858aa0]">{{ project.technologies.join(', ') }}</span>
-          <button type="button" class="text-xs text-[#89b4fa] underline hover:text-[#b4befe]" @click="filter = 'all'">
+          <button
+            type="button"
+            class="inline-flex min-h-11 items-center text-xs text-[#89b4fa] underline hover:text-[#b4befe]"
+            @click="filter = 'all'"
+          >
             Switch to All to Edit
           </button>
         </div>
