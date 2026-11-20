@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faArrowRight, faRotateRight } from '@fortawesome/free-solid-svg-icons';
+
 const {
   data: skills,
   pending: skillsPending,
@@ -20,86 +23,153 @@ const {
 
 <template>
   <div>
-    <section id="about" class="flex min-h-screen w-full flex-col items-center justify-center px-4 py-8 md:flex-row md:px-16">
-      <div class="flex flex-col items-center text-center md:w-1/2 md:text-left">
-        <img
-          src="/image/profile.jpg"
-          alt="Faiz Bastomi profile"
-          width="96"
-          height="96"
-          fetchpriority="high"
-          class="mb-6 ml-4 h-24 w-24 rounded-md object-cover md:mt-4 md:ml-0 md:hidden"
-        />
-        <div class="items-center">
-          <h1 class="text-3xl font-bold md:text-6xl">Faiz Bastomi</h1>
-          <p class="mt-6 max-w-md text-base text-[#858aa0] md:text-lg">
-            Welcome to my personal website where I showcase my projects and interests in open source, anime, and technology.
-          </p>
+    <AppNavbar />
+
+    <!-- Hero / About Section -->
+    <section id="about" class="relative overflow-hidden px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 md:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="flex flex-col-reverse items-center justify-between gap-10 md:flex-row md:items-start md:gap-12">
+          <!-- Text Content -->
+          <div class="flex flex-1 flex-col items-center text-center md:items-start md:text-left">
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-[#45475a] bg-[#181825] px-3.5 py-1 text-xs font-medium text-[#cdd6f4]"
+            >
+              <span class="h-2 w-2 rounded-full bg-[#a6e3a1]" aria-hidden="true" />
+              <span>Available for collaboration</span>
+            </div>
+
+            <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-[#cdd6f4] sm:text-5xl md:text-6xl">Faiz Bastomi</h1>
+
+            <p class="mt-3 text-lg font-medium text-[#89b4fa] sm:text-xl">Full-Stack Developer and Open Source Builder</p>
+
+            <p class="mt-4 max-w-xl text-base leading-relaxed text-[#a6adc8] sm:text-lg">
+              Developing open source web apps, developer tooling, and automated services. Focused on TypeScript, Nuxt, Node.js,
+              and clean engineering.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:justify-start">
+              <a
+                href="#projects"
+                class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#89b4fa] px-5 py-2.5 text-sm font-semibold text-[#1e1e2e] transition-colors hover:bg-[#89b4fa]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+              >
+                <span>View Projects</span>
+                <FontAwesomeIcon :icon="faArrowRight" class="text-xs" aria-hidden="true" />
+              </a>
+
+              <a
+                href="https://github.com/FaizBastomi"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#45475a] bg-[#181825] px-5 py-2.5 text-sm font-medium text-[#cdd6f4] transition-colors hover:border-[#89b4fa] hover:text-[#89b4fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+              >
+                <FontAwesomeIcon :icon="faGithub" class="text-sm" aria-hidden="true" />
+                <span>GitHub Profile</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Profile Photo Frame -->
+          <div class="flex flex-shrink-0 items-center justify-center">
+            <div class="relative rounded-2xl border-2 border-[#313244] bg-[#181825] p-2 shadow-xl shadow-[#11111b]/50">
+              <img
+                src="/image/profile.jpg"
+                alt="Faiz Bastomi profile portrait"
+                width="256"
+                height="256"
+                fetchpriority="high"
+                class="h-44 w-44 rounded-xl object-cover sm:h-56 sm:w-56 md:h-64 md:w-64"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="hidden md:flex md:w-1/2 md:items-center md:justify-center">
-        <img
-          src="/image/profile.jpg"
-          alt="Faiz Bastomi profile large"
-          width="460"
-          height="460"
-          fetchpriority="high"
-          class="max-h-screen w-1/2 rounded-md object-cover"
-        />
       </div>
     </section>
 
-    <section id="skills" class="flex min-w-full flex-col px-4 py-12 md:px-16">
-      <div class="mx-auto max-w-5xl min-w-full">
-        <h2 class="mt-5 mb-8 text-center text-3xl font-bold md:text-left md:text-4xl">Skills</h2>
+    <!-- Projects Section -->
+    <section id="projects" class="border-t border-[#313244]/60 px-4 py-16 sm:px-6 sm:py-20 md:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-10 sm:mb-12">
+          <p class="text-xs font-semibold tracking-wider text-[#89b4fa] uppercase">Portfolio</p>
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-[#cdd6f4] sm:text-3xl md:text-4xl">Featured Projects</h2>
+          <p class="mt-2 max-w-2xl text-sm text-[#a6adc8] sm:text-base">
+            Web applications, automated bots, and utility services with public repositories.
+          </p>
+        </div>
 
-        <div v-if="skillsError" class="rounded-xl border border-[#f38ba8]/30 bg-[#313244]/40 p-6 text-center">
-          <p class="text-[#f38ba8]">Unable to load skills at this moment.</p>
+        <!-- Error State -->
+        <div v-if="projectsError" class="rounded-xl border border-[#f38ba8]/30 bg-[#181825] p-8 text-center" role="alert">
+          <p class="text-sm font-medium text-[#f38ba8]">Unable to load projects at this moment.</p>
           <button
             type="button"
-            class="mt-3 rounded border border-[#89b4fa] px-4 py-1.5 text-sm text-[#89b4fa] hover:bg-[#89b4fa]/10"
-            @click="() => refreshSkills()"
+            class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-lg border border-[#89b4fa] px-4 py-2 text-sm font-medium text-[#89b4fa] hover:bg-[#89b4fa]/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+            @click="() => refreshProjects()"
           >
-            Retry
+            <FontAwesomeIcon :icon="faRotateRight" class="text-xs" aria-hidden="true" />
+            <span>Retry Loading</span>
           </button>
         </div>
 
-        <div v-else-if="skillsPending" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        <!-- Loading State Skeleton -->
+        <div v-else-if="projectsPending" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div
-            v-for="n in 8"
+            v-for="n in 3"
             :key="n"
-            class="flex h-32 animate-pulse flex-col items-center justify-center rounded-xl border border-[#45475a] bg-[#1e1e2e]"
+            class="h-80 animate-pulse rounded-xl border border-[#313244] bg-[#181825]"
+            aria-hidden="true"
           />
         </div>
 
-        <p v-else-if="skills.length === 0" class="text-center text-[#858aa0]">No skills listed yet.</p>
+        <!-- Empty State -->
+        <div v-else-if="projects.length === 0" class="rounded-xl border border-[#313244] bg-[#181825] p-12 text-center">
+          <p class="text-base text-[#a6adc8]">No projects listed yet.</p>
+        </div>
 
-        <SkillsList v-else :skills="skills" />
+        <!-- Populated List -->
+        <ProjectsList v-else :projects="projects" />
       </div>
     </section>
 
-    <section id="projects" class="flex min-w-full flex-col px-4 py-12 md:px-16">
-      <div class="mx-auto max-w-5xl min-w-full">
-        <h2 class="mt-5 mb-8 text-center text-3xl font-bold md:text-left md:text-4xl">Projects</h2>
+    <!-- Skills Section -->
+    <section id="skills" class="border-t border-[#313244]/60 px-4 py-16 sm:px-6 sm:py-20 md:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-10 sm:mb-12">
+          <p class="text-xs font-semibold tracking-wider text-[#89b4fa] uppercase">Capabilities</p>
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-[#cdd6f4] sm:text-3xl md:text-4xl">Technical Stack</h2>
+          <p class="mt-2 max-w-2xl text-sm text-[#a6adc8] sm:text-base">
+            Languages, frameworks, databases, and DevOps tools used across projects.
+          </p>
+        </div>
 
-        <div v-if="projectsError" class="rounded-xl border border-[#f38ba8]/30 bg-[#313244]/40 p-6 text-center">
-          <p class="text-[#f38ba8]">Unable to load projects at this moment.</p>
+        <!-- Error State -->
+        <div v-if="skillsError" class="rounded-xl border border-[#f38ba8]/30 bg-[#181825] p-8 text-center" role="alert">
+          <p class="text-sm font-medium text-[#f38ba8]">Unable to load technical stack at this moment.</p>
           <button
             type="button"
-            class="mt-3 rounded border border-[#89b4fa] px-4 py-1.5 text-sm text-[#89b4fa] hover:bg-[#89b4fa]/10"
-            @click="() => refreshProjects()"
+            class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-lg border border-[#89b4fa] px-4 py-2 text-sm font-medium text-[#89b4fa] hover:bg-[#89b4fa]/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+            @click="() => refreshSkills()"
           >
-            Retry
+            <FontAwesomeIcon :icon="faRotateRight" class="text-xs" aria-hidden="true" />
+            <span>Retry Loading</span>
           </button>
         </div>
 
-        <div v-else-if="projectsPending" class="grid auto-rows-auto grid-cols-1 gap-6 md:grid-cols-3">
-          <div v-for="n in 3" :key="n" class="h-80 animate-pulse rounded-xl border border-[#89b4fa]/30 bg-[#1e1e2e]" />
+        <!-- Loading State Skeleton -->
+        <div v-else-if="skillsPending" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div
+            v-for="n in 8"
+            :key="n"
+            class="h-28 animate-pulse rounded-xl border border-[#313244] bg-[#181825]"
+            aria-hidden="true"
+          />
         </div>
 
-        <p v-else-if="projects.length === 0" class="text-center text-[#858aa0]">No projects listed yet.</p>
+        <!-- Empty State -->
+        <div v-else-if="skills.length === 0" class="rounded-xl border border-[#313244] bg-[#181825] p-12 text-center">
+          <p class="text-base text-[#a6adc8]">No technologies listed yet.</p>
+        </div>
 
-        <ProjectsList v-else :projects="projects" />
+        <!-- Populated List -->
+        <SkillsList v-else :skills="skills" />
       </div>
     </section>
   </div>

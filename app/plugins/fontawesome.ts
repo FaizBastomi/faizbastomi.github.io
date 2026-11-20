@@ -13,6 +13,9 @@ import {
   faChevronRight,
   faGripVertical,
   faPersonRunning,
+  faCode,
+  faArrowRight,
+  faRotateRight,
 } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -29,6 +32,9 @@ library.add(
   faChevronRight,
   faGripVertical,
   faPersonRunning,
+  faCode,
+  faArrowRight,
+  faRotateRight,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
