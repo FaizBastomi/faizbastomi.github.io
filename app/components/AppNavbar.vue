@@ -1,6 +1,30 @@
 <script setup lang="ts">
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
+
+const showGithub = ref(false);
+
+onMounted(() => {
+  const hero = document.getElementById('about');
+  if (!hero || !('IntersectionObserver' in window)) {
+    showGithub.value = true;
+    return;
+  }
+
+  // ponytail: reveal navbar GitHub button only after hero section leaves viewport
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      showGithub.value = !entry.isIntersecting;
+    },
+    { threshold: 0.1 },
+  );
+
+  observer.observe(hero);
+
+  onUnmounted(() => {
+    observer.disconnect();
+  });
+});
 </script>
 
 <template>
@@ -34,16 +58,27 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
         >
           Skills
         </a>
-        <a
-          href="https://github.com/FaizBastomi"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="ms-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-[#45475a] bg-[#181825] px-3 py-1.5 text-xs font-medium text-[#cdd6f4] transition-colors hover:border-[#89b4fa] hover:text-[#89b4fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa] sm:text-sm"
-          aria-label="GitHub profile (opens in new tab)"
+
+        <Transition
+          enter-active-class="transition-opacity duration-200"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="transition-opacity duration-150"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
         >
-          <FontAwesomeIcon :icon="faGithub" class="text-sm" aria-hidden="true" />
-          <span class="hidden sm:inline">GitHub</span>
-        </a>
+          <a
+            v-if="showGithub"
+            href="https://github.com/FaizBastomi"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ms-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-[#45475a] bg-[#181825] px-3 py-1.5 text-xs font-medium text-[#cdd6f4] transition-colors hover:border-[#89b4fa] hover:text-[#89b4fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa] sm:text-sm"
+            aria-label="GitHub profile (opens in new tab)"
+          >
+            <FontAwesomeIcon :icon="faGithub" class="text-sm" aria-hidden="true" />
+            <span class="hidden sm:inline">GitHub</span>
+          </a>
+        </Transition>
       </nav>
     </div>
   </header>
