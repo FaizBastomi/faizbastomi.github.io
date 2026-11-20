@@ -33,6 +33,30 @@ for (const [input, expected] of [
   assert.equal(result.error, expected, `for input ${JSON.stringify(input)}`);
 }
 
+// validateUrl supports http, https, and mailto schemes for social links
+function validateUrl(value) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return { error: 'URL is required' };
+  let url;
+  try {
+    url = new URL(trimmed);
+  } catch {
+    return { error: 'URL is not a valid URL' };
+  }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:' && url.protocol !== 'mailto:') {
+    return { error: 'URL must start with http(s):// or mailto:' };
+  }
+  return url.href;
+}
+
+assert.equal(validateUrl('https://linkedin.com/in/test'), 'https://linkedin.com/in/test');
+assert.equal(validateUrl('http://example.com'), 'http://example.com/');
+assert.equal(validateUrl('mailto:contact@faizbastomi.com'), 'mailto:contact@faizbastomi.com');
+assert.equal(validateUrl('').error, 'URL is required');
+assert.equal(validateUrl('not-a-url').error, 'URL is not a valid URL');
+assert.equal(validateUrl('javascript:alert(1)').error, 'URL must start with http(s):// or mailto:');
+assert.equal(validateUrl('file:///etc/hosts').error, 'URL must start with http(s):// or mailto:');
+
 // Save actions reject the same way: a returned { error }, never a throw.
 // Mirrors saveSkill in app/dashboard/actions.js, where text() trims the field first.
 const saveSkill = (raw) => {

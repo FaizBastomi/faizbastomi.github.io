@@ -10,6 +10,21 @@ export function requireUrl(value: string) {
   return url.href;
 }
 
+export function validateUrl(value: string) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return { error: 'URL is required' };
+  let url: URL;
+  try {
+    url = new URL(trimmed);
+  } catch {
+    return { error: 'URL is not a valid URL' };
+  }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:' && url.protocol !== 'mailto:') {
+    return { error: 'URL must start with http(s):// or mailto:' };
+  }
+  return url.href;
+}
+
 const OBJECT_ID = /^[0-9a-f]{24}$/i;
 const MAX_ORDER = 500;
 

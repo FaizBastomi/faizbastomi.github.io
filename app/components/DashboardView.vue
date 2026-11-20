@@ -6,6 +6,7 @@ import {
   faArrowUpRightFromSquare,
   faCode,
   faNewspaper,
+  faShareNodes,
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Skill {
@@ -37,7 +38,17 @@ interface BlogPost {
   updatedAt?: string | Date;
 }
 
-const activeTab = ref<'projects' | 'skills' | 'blogs'>('projects');
+interface SocialLink {
+  id: string;
+  name: string;
+  url: string;
+  handle?: string | null;
+  icon?: string | null;
+  enabled: boolean;
+  position: number;
+}
+
+const activeTab = ref<'projects' | 'skills' | 'blogs' | 'social'>('projects');
 const isLoggingOut = ref(false);
 
 const { data: skills, refresh: refreshSkills } = await useFetch<Skill[]>('/api/skills', {
@@ -49,6 +60,10 @@ const { data: projects, refresh: refreshProjects } = await useFetch<Project[]>('
 });
 
 const { data: blogs, refresh: refreshBlogs } = await useFetch<BlogPost[]>('/api/dashboard/blogs', {
+  default: () => [],
+});
+
+const { data: socials, refresh: refreshSocials } = await useFetch<SocialLink[]>('/api/dashboard/socials', {
   default: () => [],
 });
 
@@ -155,6 +170,29 @@ async function onLogout() {
               {{ blogs.length }}
             </span>
           </button>
+
+          <button
+            type="button"
+            class="flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+            :class="
+              activeTab === 'social'
+                ? 'bg-[#89b4fa] font-semibold text-[#1e1e2e] shadow-sm'
+                : 'text-[#a6adc8] hover:bg-[#1e1e2e] hover:text-[#cdd6f4]'
+            "
+            :aria-selected="activeTab === 'social'"
+            @click="activeTab = 'social'"
+          >
+            <span class="inline-flex items-center gap-2.5">
+              <FontAwesomeIcon :icon="faShareNodes" class="text-xs" aria-hidden="true" />
+              <span>Social Manager</span>
+            </span>
+            <span
+              class="rounded-full px-2 py-0.5 text-xs font-semibold"
+              :class="activeTab === 'social' ? 'bg-[#1e1e2e]/20 text-[#1e1e2e]' : 'bg-[#313244] text-[#a6adc8]'"
+            >
+              {{ socials.length }}
+            </span>
+          </button>
         </nav>
       </div>
 
@@ -186,7 +224,15 @@ async function onLogout() {
     <section class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:h-full" aria-label="Dashboard workspace">
       <header class="flex-shrink-0 border-b border-[#313244] bg-[#1e1e2e] px-4 py-4 sm:px-6 sm:py-5 md:px-8">
         <h1 class="text-2xl font-bold tracking-tight text-[#cdd6f4]">
-          {{ activeTab === 'projects' ? 'Project Manager' : activeTab === 'skills' ? 'Skill Manager' : 'Blog Manager' }}
+          {{
+            activeTab === 'projects'
+              ? 'Project Manager'
+              : activeTab === 'skills'
+                ? 'Skill Manager'
+                : activeTab === 'blogs'
+                  ? 'Blog Manager'
+                  : 'Social Manager'
+          }}
         </h1>
         <p class="mt-1 text-xs text-[#a6adc8] sm:text-sm">
           {{
@@ -194,7 +240,9 @@ async function onLogout() {
               ? 'Manage, reorder, and publish portfolio project showcase entries.'
               : activeTab === 'skills'
                 ? 'Manage technical competencies, reorder priorities, and view vector icons.'
-                : 'Write, edit, and publish personal blog articles with full Markdown support.'
+                : activeTab === 'blogs'
+                  ? 'Write, edit, and publish personal blog articles with full Markdown support.'
+                  : 'Manage external social links, direct contact options, and developer profiles.'
           }}
         </p>
       </header>
@@ -205,6 +253,8 @@ async function onLogout() {
         <DashboardSkillsManager v-else-if="activeTab === 'skills'" :skills="skills" @refresh="refreshSkills" />
 
         <DashboardBlogManager v-else-if="activeTab === 'blogs'" :blogs="blogs" @refresh="refreshBlogs" />
+
+        <DashboardSocialManager v-else-if="activeTab === 'social'" :socials="socials" @refresh="refreshSocials" />
       </div>
     </section>
   </div>

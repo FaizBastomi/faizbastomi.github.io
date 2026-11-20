@@ -4,6 +4,7 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 defineProps<{
   hasBlogs?: boolean;
+  hasSocials?: boolean;
 }>();
 
 const showGithub = ref(false);
@@ -68,6 +69,13 @@ onMounted(() => {
           class="inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-xs font-medium text-[#a6adc8] transition-colors hover:text-[#cdd6f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa] sm:text-sm"
         >
           Blogs
+        </a>
+        <a
+          v-if="hasSocials"
+          href="#social"
+          class="inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-xs font-medium text-[#a6adc8] transition-colors hover:text-[#cdd6f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa] sm:text-sm"
+        >
+          Social
         </a>
 
         <Transition

@@ -51,12 +51,49 @@ const skills = [
   { name: 'Docker' },
 ];
 
+const socials = [
+  {
+    name: 'GitHub',
+    url: 'https://github.com/FaizBastomi',
+    handle: '@FaizBastomi',
+    icon: 'github',
+    position: 0,
+    enabled: true,
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://linkedin.com/in/faizbastomi',
+    handle: 'faizbastomi',
+    icon: 'linkedin',
+    position: 1,
+    enabled: true,
+  },
+  {
+    name: 'X / Twitter',
+    url: 'https://x.com/FaizBastomi',
+    handle: '@FaizBastomi',
+    icon: 'x-twitter',
+    position: 2,
+    enabled: true,
+  },
+  {
+    name: 'Email',
+    url: 'mailto:contact@faizdev.my.id',
+    handle: 'contact@faizdev.my.id',
+    icon: 'envelope',
+    position: 3,
+    enabled: true,
+  },
+];
+
 async function main() {
   await prisma.project.deleteMany();
   await prisma.skill.deleteMany();
+  await prisma.social.deleteMany();
   await prisma.project.createMany({ data: projects });
   await prisma.skill.createMany({ data: skills });
-  console.log(`Seeded ${projects.length} projects and ${skills.length} skills`);
+  await prisma.social.createMany({ data: socials });
+  console.log(`Seeded ${projects.length} projects, ${skills.length} skills, and ${socials.length} socials`);
 }
 
 main().finally(() => prisma.$disconnect());

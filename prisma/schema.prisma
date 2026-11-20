@@ -40,3 +40,15 @@ model Post {
 
   @@map("posts")
 }
+
+model Social {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  url      String
+  handle   String?
+  icon     String?
+  enabled  Boolean @default(true)
+  position Int     @default(0)
+
+  @@map("socials")
+}

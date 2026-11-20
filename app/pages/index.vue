@@ -29,6 +29,10 @@ const {
   default: () => [],
 });
 
+const { data: socials } = await useFetch('/api/socials', {
+  default: () => [],
+});
+
 // ponytail: structured data graph for rich search results and person knowledge graph
 useHead({
   script: [
@@ -80,7 +84,7 @@ useHead({
 
 <template>
   <div>
-    <AppNavbar :has-blogs="Boolean(blogs && blogs.length > 0)" />
+    <AppNavbar :has-blogs="Boolean(blogs && blogs.length > 0)" :has-socials="Boolean(socials && socials.length > 0)" />
 
     <!-- Hero / About Section -->
     <section id="about" class="relative overflow-hidden px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 md:px-8">
@@ -237,5 +241,8 @@ useHead({
         <BlogsList :blogs="blogs" />
       </div>
     </section>
+
+    <!-- Social Section: positioned at the very bottom after Blogs -->
+    <SocialCard :socials="socials" />
   </div>
 </template>
