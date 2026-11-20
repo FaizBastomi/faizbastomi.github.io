@@ -42,10 +42,10 @@ async function onLogout() {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col md:flex-row">
-    <!-- Left Sidebar -->
+  <div class="flex h-full flex-col overflow-hidden md:flex-row">
+    <!-- Left Sidebar: stationary navigation panel -->
     <aside
-      class="flex w-full flex-shrink-0 flex-col justify-between border-b border-[#313244] bg-[#181825] p-5 md:min-h-[calc(100vh-60px)] md:w-64 md:border-r md:border-b-0 lg:w-72"
+      class="flex w-full flex-shrink-0 flex-col justify-between border-b border-[#313244] bg-[#181825] p-5 md:h-full md:w-64 md:overflow-y-auto md:border-r md:border-b-0 lg:w-72"
       aria-label="Dashboard sidebar"
     >
       <div>
@@ -137,8 +137,8 @@ async function onLogout() {
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="min-w-0 flex-1 p-4 sm:p-6 md:p-8">
+    <!-- Main Content Area: independently scrollable workspace -->
+    <section class="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 md:p-8" aria-label="Dashboard workspace">
       <header class="mb-6 border-b border-[#313244] pb-4">
         <h1 class="text-2xl font-bold tracking-tight text-[#cdd6f4]">
           {{ activeTab === 'projects' ? 'Project Manager' : 'Skill Manager' }}
@@ -155,6 +155,6 @@ async function onLogout() {
       <DashboardProjectsManager v-if="activeTab === 'projects'" :projects="projects" @refresh="refreshProjects" />
 
       <DashboardSkillsManager v-else-if="activeTab === 'skills'" :skills="skills" @refresh="refreshSkills" />
-    </main>
+    </section>
   </div>
 </template>

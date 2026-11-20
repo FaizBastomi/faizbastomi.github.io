@@ -29,7 +29,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col items-center justify-center px-4 py-12">
+  <div class="flex min-h-full flex-col items-center justify-center px-4 py-12">
     <div class="w-full max-w-sm">
       <div class="mb-6 text-center">
         <div
