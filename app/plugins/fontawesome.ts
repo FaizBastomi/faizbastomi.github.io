@@ -16,6 +16,11 @@ import {
   faCode,
   faArrowRight,
   faRotateRight,
+  faPlus,
+  faTrash,
+  faCheck,
+  faRightFromBracket,
+  faFolder,
 } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -35,6 +40,11 @@ library.add(
   faCode,
   faArrowRight,
   faRotateRight,
+  faPlus,
+  faTrash,
+  faCheck,
+  faRightFromBracket,
+  faFolder,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

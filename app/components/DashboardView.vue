@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { faFolder, faLayerGroup, faRightFromBracket, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+
 interface Skill {
   id: string;
   name: string;
   position: number;
+  svg?: string | null;
 }
 
 interface Project {
@@ -16,6 +19,9 @@ interface Project {
   position: number;
 }
 
+const activeTab = ref<'projects' | 'skills'>('projects');
+const isLoggingOut = ref(false);
+
 const { data: skills, refresh: refreshSkills } = await useFetch<Skill[]>('/api/skills', {
   default: () => [],
 });
@@ -24,286 +30,99 @@ const { data: projects, refresh: refreshProjects } = await useFetch<Project[]>('
   default: () => [],
 });
 
-const card = 'rounded-lg border border-[#45475a] bg-[#181825] p-4';
-const input = 'w-full rounded bg-[#313244] px-2 py-1 text-sm outline-none focus:ring-1 focus:ring-[#89b4fa]';
-
-const newSkillName = ref('');
-const newProject = reactive({
-  name: '',
-  image: '',
-  description: '',
-  githubUrl: '',
-  technologies: '',
-});
-
-const skillErrors = ref<Record<string, string>>({});
-const projectErrors = ref<Record<string, string>>({});
-const generalError = ref('');
-
 async function onLogout() {
-  const res = await $fetch<{ redirect: string }>('/api/dashboard/logout', { method: 'POST' });
-  await navigateTo(res.redirect);
-}
-
-async function reorderSkills(nextIds: string[]) {
+  isLoggingOut.value = true;
   try {
-    await $fetch('/api/dashboard/reorder', {
-      method: 'POST',
-      body: { type: 'skill', order: nextIds.join(',') },
-    });
-  } catch {
-    generalError.value = 'Failed to reorder skills.';
+    const res = await $fetch<{ redirect: string }>('/api/dashboard/logout', { method: 'POST' });
+    await navigateTo(res.redirect);
+  } finally {
+    isLoggingOut.value = false;
   }
-}
-
-async function reorderProjects(nextIds: string[]) {
-  try {
-    await $fetch('/api/dashboard/reorder', {
-      method: 'POST',
-      body: { type: 'project', order: nextIds.join(',') },
-    });
-  } catch {
-    generalError.value = 'Failed to reorder projects.';
-  }
-}
-
-async function addSkill() {
-  skillErrors.value.add = '';
-  const res = await $fetch<{ error?: string }>('/api/dashboard/skills', {
-    method: 'POST',
-    body: { name: newSkillName.value },
-  });
-  if (res.error) {
-    skillErrors.value.add = res.error;
-    return;
-  }
-  newSkillName.value = '';
-  await refreshSkills();
-}
-
-async function saveSkill(skill: Skill) {
-  skillErrors.value[skill.id] = '';
-  const res = await $fetch<{ error?: string }>('/api/dashboard/skills', {
-    method: 'POST',
-    body: { id: skill.id, name: skill.name },
-  });
-  if (res.error) {
-    skillErrors.value[skill.id] = res.error;
-    return;
-  }
-  await refreshSkills();
-}
-
-async function deleteSkill(id: string) {
-  await $fetch('/api/dashboard/skills', {
-    method: 'DELETE',
-    body: { id },
-  });
-  await refreshSkills();
-}
-
-async function addProject() {
-  projectErrors.value.add = '';
-  const res = await $fetch<{ error?: string }>('/api/dashboard/projects', {
-    method: 'POST',
-    body: newProject,
-  });
-  if (res.error) {
-    projectErrors.value.add = res.error;
-    return;
-  }
-  Object.assign(newProject, { name: '', image: '', description: '', githubUrl: '', technologies: '' });
-  await refreshProjects();
-}
-
-async function saveProject(project: Project) {
-  projectErrors.value[project.id] = '';
-  const res = await $fetch<{ error?: string }>('/api/dashboard/projects', {
-    method: 'POST',
-    body: project,
-  });
-  if (res.error) {
-    projectErrors.value[project.id] = res.error;
-    return;
-  }
-  await refreshProjects();
-}
-
-async function deleteProject(id: string) {
-  await $fetch('/api/dashboard/projects', {
-    method: 'DELETE',
-    body: { id },
-  });
-  await refreshProjects();
 }
 </script>
 
 <template>
-  <div class="mx-auto max-w-5xl px-4 py-8">
-    <div class="mb-8 flex items-center justify-between">
-      <h1 class="text-3xl font-bold">Dashboard</h1>
+  <div class="mx-auto max-w-5xl px-4 py-8 sm:px-6 md:px-8">
+    <!-- Top Administrative Header -->
+    <header class="mb-8 flex flex-col gap-4 border-b border-[#313244] pb-6 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-[#cdd6f4] sm:text-3xl">Dashboard</h1>
+        <p class="mt-1 text-xs text-[#a6adc8] sm:text-sm">Manage portfolio projects and technical capabilities</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-[#45475a] bg-[#181825] px-3.5 py-1.5 text-xs font-medium text-[#cdd6f4] transition-colors hover:border-[#89b4fa] hover:text-[#89b4fa]"
+        >
+          <span>View Site</span>
+          <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="text-[10px]" aria-hidden="true" />
+        </a>
+
+        <button
+          type="button"
+          :disabled="isLoggingOut"
+          class="inline-flex min-h-11 items-center gap-2 rounded-lg border border-[#f38ba8]/60 bg-[#181825] px-4 py-1.5 text-xs font-semibold text-[#f38ba8] transition-colors hover:bg-[#f38ba8]/10 disabled:opacity-50"
+          @click="onLogout"
+        >
+          <FontAwesomeIcon :icon="faRightFromBracket" class="text-xs" aria-hidden="true" />
+          <span>{{ isLoggingOut ? 'Logging out...' : 'Logout' }}</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Manager Navigation Tabs -->
+    <nav class="mb-6 flex border-b border-[#313244]" aria-label="Dashboard sections">
       <button
         type="button"
-        class="min-h-11 rounded border border-[#f38ba8] px-4 py-1 text-sm font-semibold text-[#f38ba8] hover:bg-[#f38ba8]/10"
-        @click="onLogout"
+        class="inline-flex min-h-11 items-center gap-2 border-b-2 px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+        :class="
+          activeTab === 'projects'
+            ? 'border-[#89b4fa] text-[#89b4fa]'
+            : 'border-transparent text-[#a6adc8] hover:border-[#45475a] hover:text-[#cdd6f4]'
+        "
+        :aria-selected="activeTab === 'projects'"
+        @click="activeTab = 'projects'"
       >
-        Logout
+        <FontAwesomeIcon :icon="faFolder" class="text-xs" aria-hidden="true" />
+        <span>Project Manager</span>
+        <span
+          class="rounded-full px-2 py-0.5 text-xs"
+          :class="activeTab === 'projects' ? 'bg-[#89b4fa]/20 text-[#89b4fa]' : 'bg-[#313244] text-[#a6adc8]'"
+        >
+          {{ projects.length }}
+        </span>
       </button>
-    </div>
 
-    <div v-if="generalError" role="alert" class="mb-6 rounded-lg bg-[#f38ba8]/10 p-3 text-sm text-[#f38ba8]">
-      {{ generalError }}
-    </div>
+      <button
+        type="button"
+        class="inline-flex min-h-11 items-center gap-2 border-b-2 px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+        :class="
+          activeTab === 'skills'
+            ? 'border-[#89b4fa] text-[#89b4fa]'
+            : 'border-transparent text-[#a6adc8] hover:border-[#45475a] hover:text-[#cdd6f4]'
+        "
+        :aria-selected="activeTab === 'skills'"
+        @click="activeTab = 'skills'"
+      >
+        <FontAwesomeIcon :icon="faLayerGroup" class="text-xs" aria-hidden="true" />
+        <span>Skill Manager</span>
+        <span
+          class="rounded-full px-2 py-0.5 text-xs"
+          :class="activeTab === 'skills' ? 'bg-[#89b4fa]/20 text-[#89b4fa]' : 'bg-[#313244] text-[#a6adc8]'"
+        >
+          {{ skills.length }}
+        </span>
+      </button>
+    </nav>
 
-    <DashboardList title="Skills" storage-key="skills" :ids="skills.map((s) => s.id)" @reorder="reorderSkills">
-      <template #default="{ id }">
-        <div v-if="skills.find((s) => s.id === id)" :class="card" class="flex flex-wrap items-end gap-3">
-          <label class="min-w-40 flex-1">
-            <span class="mb-1 block text-xs text-[#858aa0]">Name</span>
-            <input v-model="skills.find((s) => s.id === id)!.name" :class="input" type="text" />
-          </label>
-          <button
-            type="button"
-            class="min-h-11 rounded bg-[#89b4fa] px-3 py-1 text-sm font-semibold text-[#1e1e2e]"
-            @click="saveSkill(skills.find((s) => s.id === id)!)"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            class="min-h-11 rounded border border-[#f38ba8] px-3 py-1 text-sm text-[#f38ba8] hover:bg-[#f38ba8]/10"
-            @click="deleteSkill(id)"
-          >
-            Delete
-          </button>
-          <p v-if="skillErrors[id]" role="alert" class="w-full text-xs text-[#f38ba8]">
-            {{ skillErrors[id] }}
-          </p>
-        </div>
-      </template>
+    <!-- Active Section View -->
+    <main>
+      <DashboardProjectsManager v-if="activeTab === 'projects'" :projects="projects" @refresh="refreshProjects" />
 
-      <template #footer>
-        <div :class="card" class="mt-3 flex flex-wrap items-end gap-3">
-          <label class="min-w-40 flex-1">
-            <span class="mb-1 block text-xs text-[#858aa0]">Name</span>
-            <input v-model="newSkillName" :class="input" type="text" placeholder="New skill" />
-          </label>
-          <button
-            type="button"
-            class="min-h-11 rounded bg-[#89b4fa] px-4 py-1 text-sm font-semibold text-[#1e1e2e]"
-            @click="addSkill"
-          >
-            Add
-          </button>
-          <p v-if="skillErrors.add" role="alert" class="w-full text-xs text-[#f38ba8]">
-            {{ skillErrors.add }}
-          </p>
-        </div>
-      </template>
-    </DashboardList>
-
-    <DashboardList title="Projects" storage-key="projects" :ids="projects.map((p) => p.id)" @reorder="reorderProjects">
-      <template #default="{ id }">
-        <div v-if="projects.find((p) => p.id === id)" :class="card" class="space-y-3">
-          <div class="flex flex-wrap gap-3">
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">Name</span>
-              <input v-model="projects.find((p) => p.id === id)!.name" :class="input" type="text" />
-            </label>
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">Image URL</span>
-              <input v-model="projects.find((p) => p.id === id)!.image" :class="input" type="text" />
-            </label>
-          </div>
-          <label class="block">
-            <span class="mb-1 block text-xs text-[#858aa0]">Description</span>
-            <input v-model="projects.find((p) => p.id === id)!.description" :class="input" type="text" />
-          </label>
-          <div class="flex flex-wrap gap-3">
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">GitHub URL</span>
-              <input v-model="projects.find((p) => p.id === id)!.githubUrl" :class="input" type="text" />
-            </label>
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">Technologies (comma separated)</span>
-              <input
-                :value="projects.find((p) => p.id === id)!.technologies.join(', ')"
-                :class="input"
-                type="text"
-                @input="
-                  (e) =>
-                    (projects.find((p) => p.id === id)!.technologies = (e.target as HTMLInputElement).value
-                      .split(',')
-                      .map((s) => s.trim())
-                      .filter(Boolean))
-                "
-              />
-            </label>
-          </div>
-          <label class="flex items-center gap-2 text-sm">
-            <input v-model="projects.find((p) => p.id === id)!.archived" type="checkbox" />
-            Archived
-          </label>
-          <div class="flex gap-3">
-            <button
-              type="button"
-              class="min-h-11 rounded bg-[#89b4fa] px-3 py-1 text-sm font-semibold text-[#1e1e2e]"
-              @click="saveProject(projects.find((p) => p.id === id)!)"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              class="min-h-11 rounded border border-[#f38ba8] px-3 py-1 text-sm text-[#f38ba8] hover:bg-[#f38ba8]/10"
-              @click="deleteProject(id)"
-            >
-              Delete
-            </button>
-          </div>
-          <p v-if="projectErrors[id]" role="alert" class="text-xs text-[#f38ba8]">
-            {{ projectErrors[id] }}
-          </p>
-        </div>
-      </template>
-
-      <template #footer>
-        <div :class="card" class="mt-3 space-y-3">
-          <div class="flex flex-wrap gap-3">
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">Name</span>
-              <input v-model="newProject.name" :class="input" type="text" placeholder="New project" />
-            </label>
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">Image URL</span>
-              <input v-model="newProject.image" :class="input" type="text" placeholder="https://..." />
-            </label>
-          </div>
-          <label class="block">
-            <span class="mb-1 block text-xs text-[#858aa0]">Description</span>
-            <input v-model="newProject.description" :class="input" type="text" />
-          </label>
-          <div class="flex flex-wrap gap-3">
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">GitHub URL</span>
-              <input v-model="newProject.githubUrl" :class="input" type="text" placeholder="https://github.com/..." />
-            </label>
-            <label class="min-w-40 flex-1">
-              <span class="mb-1 block text-xs text-[#858aa0]">Technologies (comma separated)</span>
-              <input v-model="newProject.technologies" :class="input" type="text" />
-            </label>
-          </div>
-          <button
-            type="button"
-            class="min-h-11 rounded bg-[#89b4fa] px-4 py-1 text-sm font-semibold text-[#1e1e2e]"
-            @click="addProject"
-          >
-            Add
-          </button>
-          <p v-if="projectErrors.add" role="alert" class="text-xs text-[#f38ba8]">
-            {{ projectErrors.add }}
-          </p>
-        </div>
-      </template>
-    </DashboardList>
+      <DashboardSkillsManager v-else-if="activeTab === 'skills'" :skills="skills" @refresh="refreshSkills" />
+    </main>
   </div>
 </template>
