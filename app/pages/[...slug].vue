@@ -31,7 +31,7 @@ useHead({
 </script>
 
 <template>
-  <div class="flex h-full min-h-0 flex-1 flex-col">
+  <div class="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
     <DashboardLoginView v-if="session?.isLogin" />
     <DashboardView v-else />
   </div>
