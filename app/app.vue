@@ -7,9 +7,9 @@ const isDashboard = computed(() => route.path !== '/');
 
 <template>
   <div :class="['flex antialiased', isDashboard ? 'h-screen flex-col overflow-hidden' : 'min-h-screen flex-col']">
-    <main :class="['flex-1', isDashboard ? 'min-h-0 overflow-hidden' : '']">
+    <main :class="['flex-1', isDashboard ? 'flex min-h-0 flex-col overflow-hidden' : '']">
       <NuxtPage />
     </main>
-    <AppFooter />
+    <AppFooter :class="isDashboard ? 'flex-shrink-0' : ''" />
   </div>
 </template>

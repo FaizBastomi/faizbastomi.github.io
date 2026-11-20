@@ -42,7 +42,7 @@ async function onLogout() {
 </script>
 
 <template>
-  <div class="flex h-full flex-col overflow-hidden md:flex-row">
+  <div class="flex h-full min-h-0 flex-1 flex-col overflow-hidden md:flex-row">
     <!-- Left Sidebar: stationary navigation panel -->
     <aside
       class="flex w-full flex-shrink-0 flex-col justify-between border-b border-[#313244] bg-[#181825] p-5 md:h-full md:w-64 md:overflow-y-auto md:border-r md:border-b-0 lg:w-72"
@@ -138,7 +138,7 @@ async function onLogout() {
     </aside>
 
     <!-- Main Content Area: independently scrollable workspace -->
-    <section class="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 md:p-8" aria-label="Dashboard workspace">
+    <section class="min-h-0 min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 md:h-full md:p-8" aria-label="Dashboard workspace">
       <header class="mb-6 border-b border-[#313244] pb-4">
         <h1 class="text-2xl font-bold tracking-tight text-[#cdd6f4]">
           {{ activeTab === 'projects' ? 'Project Manager' : 'Skill Manager' }}
