@@ -70,6 +70,19 @@ assert.equal(slug('C++'), 'c');
 // Nothing left after stripping -- the component falls back to a neutral icon for these.
 assert.equal(slug('!!!'), '');
 
+// Test blog title slugify utility
+const slugify = (text) =>
+  String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+assert.equal(slugify('My First Blog Post!'), 'my-first-blog-post');
+assert.equal(slugify('  Nuxt 4 & Tailwind CSS v4...  '), 'nuxt-4-tailwind-css-v4');
+assert.equal(slugify('Clean-Code_Design: 101'), 'clean-code-design-101');
+
 // Mirrors ids() in app/dashboard/actions.js. The drag order is a client-supplied string, so it is
 // filtered to real ObjectIds before it reaches Prisma and capped at MAX_ORDER.
 const OBJECT_ID = /^[0-9a-f]{24}$/i;

@@ -20,6 +20,15 @@ const {
   default: () => [],
 });
 
+const {
+  data: blogs,
+  pending: blogsPending,
+  error: blogsError,
+  refresh: refreshBlogs,
+} = await useFetch('/api/blogs', {
+  default: () => [],
+});
+
 // ponytail: structured data graph for rich search results and person knowledge graph
 useHead({
   script: [
@@ -71,7 +80,7 @@ useHead({
 
 <template>
   <div>
-    <AppNavbar />
+    <AppNavbar :has-blogs="Boolean(blogs && blogs.length > 0)" />
 
     <!-- Hero / About Section -->
     <section id="about" class="relative overflow-hidden px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 md:px-8">
@@ -211,6 +220,21 @@ useHead({
 
         <!-- Populated List -->
         <SkillsList v-else :skills="skills" />
+      </div>
+    </section>
+
+    <!-- Blogs Section: positioned at the very bottom of main page; hidden if no post found in database -->
+    <section v-if="blogs && blogs.length > 0" id="blogs" class="border-t border-[#313244]/60 px-4 py-16 sm:px-6 sm:py-20 md:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-10 sm:mb-12">
+          <p class="text-xs font-semibold tracking-wider text-[#89b4fa] uppercase">Writing</p>
+          <h2 class="mt-1 text-2xl font-bold tracking-tight text-[#cdd6f4] sm:text-3xl md:text-4xl">Blogs</h2>
+          <p class="mt-2 max-w-2xl text-sm text-[#a6adc8] sm:text-base">
+            Articles, notes, and technical writeups on web engineering and open source.
+          </p>
+        </div>
+
+        <BlogsList :blogs="blogs" />
       </div>
     </section>
   </div>

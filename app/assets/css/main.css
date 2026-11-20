@@ -59,3 +59,159 @@ input[type='radio'],
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Markdown Prose Styling for Blogs and Markdown Editor Preview */
+.markdown-prose {
+  color: #cdd6f4;
+  line-height: 1.75;
+}
+
+.markdown-prose h1,
+.markdown-prose h2,
+.markdown-prose h3,
+.markdown-prose h4 {
+  color: #cdd6f4;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-top: 1.75em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+.markdown-prose h1 {
+  font-size: 2rem;
+  border-bottom: 1px solid #313244;
+  padding-bottom: 0.5rem;
+}
+
+.markdown-prose h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #313244;
+  padding-bottom: 0.4rem;
+}
+
+.markdown-prose h3 {
+  font-size: 1.25rem;
+}
+
+.markdown-prose h4 {
+  font-size: 1.1rem;
+}
+
+.markdown-prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: #bac2de;
+}
+
+.markdown-prose a {
+  color: #89b4fa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.markdown-prose a:hover {
+  color: #b4befe;
+}
+
+.markdown-prose strong {
+  color: #cdd6f4;
+  font-weight: 700;
+}
+
+.markdown-prose em {
+  color: #cdd6f4;
+}
+
+.markdown-prose blockquote {
+  border-left: 4px solid #89b4fa;
+  background-color: #181825;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1.5em 0;
+  color: #a6adc8;
+  font-style: italic;
+}
+
+.markdown-prose code {
+  background-color: #313244;
+  color: #f5c2e7;
+  padding: 0.2em 0.4em;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.markdown-prose pre {
+  background-color: #11111b;
+  border: 1px solid #313244;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.markdown-prose pre code {
+  background-color: transparent;
+  color: #cdd6f4;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.markdown-prose ul {
+  list-style-type: disc;
+  margin: 1em 0;
+  padding-left: 1.5rem;
+  color: #bac2de;
+}
+
+.markdown-prose ol {
+  list-style-type: decimal;
+  margin: 1em 0;
+  padding-left: 1.5rem;
+  color: #bac2de;
+}
+
+.markdown-prose li {
+  margin: 0.375em 0;
+}
+
+.markdown-prose hr {
+  border-color: #313244;
+  margin: 2em 0;
+}
+
+.markdown-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.875rem;
+}
+
+.markdown-prose th,
+.markdown-prose td {
+  border: 1px solid #313244;
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+}
+
+.markdown-prose th {
+  background-color: #181825;
+  color: #cdd6f4;
+  font-weight: 600;
+}
+
+.markdown-prose tr:nth-child(even) {
+  background-color: #181825;
+}
+
+.markdown-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5em 0;
+  border: 1px solid #313244;
+}

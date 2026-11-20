@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { faFolder, faLayerGroup, faRightFromBracket, faArrowUpRightFromSquare, faCode } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFolder,
+  faLayerGroup,
+  faRightFromBracket,
+  faArrowUpRightFromSquare,
+  faCode,
+  faNewspaper,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface Skill {
   id: string;
@@ -19,7 +26,18 @@ interface Project {
   position: number;
 }
 
-const activeTab = ref<'projects' | 'skills'>('projects');
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  description?: string | null;
+  published: boolean;
+  createdAt: string | Date;
+  updatedAt?: string | Date;
+}
+
+const activeTab = ref<'projects' | 'skills' | 'blogs'>('projects');
 const isLoggingOut = ref(false);
 
 const { data: skills, refresh: refreshSkills } = await useFetch<Skill[]>('/api/skills', {
@@ -27,6 +45,10 @@ const { data: skills, refresh: refreshSkills } = await useFetch<Skill[]>('/api/s
 });
 
 const { data: projects, refresh: refreshProjects } = await useFetch<Project[]>('/api/projects', {
+  default: () => [],
+});
+
+const { data: blogs, refresh: refreshBlogs } = await useFetch<BlogPost[]>('/api/dashboard/blogs', {
   default: () => [],
 });
 
@@ -110,6 +132,29 @@ async function onLogout() {
               {{ skills.length }}
             </span>
           </button>
+
+          <button
+            type="button"
+            class="flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#89b4fa]"
+            :class="
+              activeTab === 'blogs'
+                ? 'bg-[#89b4fa] font-semibold text-[#1e1e2e] shadow-sm'
+                : 'text-[#a6adc8] hover:bg-[#1e1e2e] hover:text-[#cdd6f4]'
+            "
+            :aria-selected="activeTab === 'blogs'"
+            @click="activeTab = 'blogs'"
+          >
+            <span class="inline-flex items-center gap-2.5">
+              <FontAwesomeIcon :icon="faNewspaper" class="text-xs" aria-hidden="true" />
+              <span>Blog Manager</span>
+            </span>
+            <span
+              class="rounded-full px-2 py-0.5 text-xs font-semibold"
+              :class="activeTab === 'blogs' ? 'bg-[#1e1e2e]/20 text-[#1e1e2e]' : 'bg-[#313244] text-[#a6adc8]'"
+            >
+              {{ blogs.length }}
+            </span>
+          </button>
         </nav>
       </div>
 
@@ -141,13 +186,15 @@ async function onLogout() {
     <section class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:h-full" aria-label="Dashboard workspace">
       <header class="flex-shrink-0 border-b border-[#313244] bg-[#1e1e2e] px-4 py-4 sm:px-6 sm:py-5 md:px-8">
         <h1 class="text-2xl font-bold tracking-tight text-[#cdd6f4]">
-          {{ activeTab === 'projects' ? 'Project Manager' : 'Skill Manager' }}
+          {{ activeTab === 'projects' ? 'Project Manager' : activeTab === 'skills' ? 'Skill Manager' : 'Blog Manager' }}
         </h1>
         <p class="mt-1 text-xs text-[#a6adc8] sm:text-sm">
           {{
             activeTab === 'projects'
               ? 'Manage, reorder, and publish portfolio project showcase entries.'
-              : 'Manage technical competencies, reorder priorities, and view vector icons.'
+              : activeTab === 'skills'
+                ? 'Manage technical competencies, reorder priorities, and view vector icons.'
+                : 'Write, edit, and publish personal blog articles with full Markdown support.'
           }}
         </p>
       </header>
@@ -156,6 +203,8 @@ async function onLogout() {
         <DashboardProjectsManager v-if="activeTab === 'projects'" :projects="projects" @refresh="refreshProjects" />
 
         <DashboardSkillsManager v-else-if="activeTab === 'skills'" :skills="skills" @refresh="refreshSkills" />
+
+        <DashboardBlogManager v-else-if="activeTab === 'blogs'" :blogs="blogs" @refresh="refreshBlogs" />
       </div>
     </section>
   </div>
