@@ -6,10 +6,8 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 <template>
   <footer class="border-t border-[#313244]/80 bg-[#181825] text-xs text-[#a6adc8]">
     <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6 md:px-8">
-      <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center sm:text-left">
+      <div class="flex items-center text-center sm:text-left">
         <span class="font-medium text-[#cdd6f4]">Faiz Bastomi</span>
-        <span class="hidden text-[#45475a] sm:inline" aria-hidden="true">&bull;</span>
-        <span>Built with Nuxt 4 and Catppuccin Mocha</span>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">

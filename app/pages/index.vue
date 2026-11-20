@@ -31,14 +31,7 @@ const {
         <div class="flex flex-col-reverse items-center justify-between gap-10 md:flex-row md:items-start md:gap-12">
           <!-- Text Content -->
           <div class="flex flex-1 flex-col items-center text-center md:items-start md:text-left">
-            <div
-              class="inline-flex items-center gap-2 rounded-full border border-[#45475a] bg-[#181825] px-3.5 py-1 text-xs font-medium text-[#cdd6f4]"
-            >
-              <span class="h-2 w-2 rounded-full bg-[#a6e3a1]" aria-hidden="true" />
-              <span>Available for collaboration</span>
-            </div>
-
-            <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-[#cdd6f4] sm:text-5xl md:text-6xl">Faiz Bastomi</h1>
+            <h1 class="text-4xl font-extrabold tracking-tight text-[#cdd6f4] sm:text-5xl md:text-6xl">Faiz Bastomi</h1>
 
             <p class="mt-3 text-lg font-medium text-[#89b4fa] sm:text-xl">Full-Stack Developer and Open Source Builder</p>
 
