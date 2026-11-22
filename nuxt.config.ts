@@ -33,9 +33,9 @@ export default defineNuxtConfig({
           href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
         },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'icon', type: 'image/jpeg', sizes: '16x16', href: '/image/favicon_16.jpg' },
-        { rel: 'icon', type: 'image/jpeg', sizes: '32x32', href: '/image/favicon_32.jpg' },
-        { rel: 'apple-touch-icon', href: '/image/favicon_32.jpg' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
       ],
       meta: [
         {
